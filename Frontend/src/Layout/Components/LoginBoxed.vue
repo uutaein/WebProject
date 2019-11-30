@@ -80,7 +80,7 @@
             signInEmail(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                     .then((user)=>{
-                        location.replace('/')
+                        location.replace('/Dashboards')
                     })
                     .catch((error)=>{
                         alert(error);
@@ -94,7 +94,7 @@
                     var token=result.credential.accessToken;
 
                     var user=result.user;
-                    if(result) location.replace('/');
+                    if(result) location.replace('/Dashboards');
                 }).catch(function (error) {
                     var errorCode=error.code;
                     var errorMessage=error.message;

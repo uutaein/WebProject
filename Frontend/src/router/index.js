@@ -9,12 +9,12 @@ export default new Router({
     },
     routes: [
 
-        // Dashboards
-        // {
-        //     path: '/',
-        //     name: 'analytics',
-        //     component: () => import('../Layout/Components/Dashboards/Analytics.vue'),
-        // },
+        //Dashboards
+        {
+            path: '/Dashboards',
+            name: 'analytics',
+            component: () => import('../Layout/Components/Dashboards/Analytics.vue'),
+        },
 
 
         // Login

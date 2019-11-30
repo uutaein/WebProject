@@ -8,8 +8,8 @@ import App from './App'
 import Default from './Layout/Wrappers/baseLayout.vue';
 import Pages from './Layout/Wrappers/pagesLayout.vue';
 
-import firebase from "firebase"
-
+import firebase from "firebase";
+import './plugins/axios';
 Vue.config.productionTip = false;
 
 var config = 

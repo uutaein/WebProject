@@ -7,6 +7,7 @@ export default new Router({
     scrollBehavior() {
         return window.scrollTo({ top: 0, behavior: 'smooth' });
     },
+    mode:'history',
     routes: [
 
         //Dashboards
@@ -23,14 +24,6 @@ export default new Router({
             name: 'login',
             meta: {layout: 'userpages'},
             component: () => import('../Layout/Components/LoginBoxed.vue'),
-        },
-
-        // Pages
-        {
-            path: '/pages/login-boxed',
-            name: 'login-boxed',
-            meta: {layout: 'userpages'},
-            component: () => import('../DemoPages/UserPages/LoginBoxed.vue'),
         },
         {
             path: '/Register',

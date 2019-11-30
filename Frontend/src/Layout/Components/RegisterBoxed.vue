@@ -3,7 +3,9 @@
         <div class="h-100 bg-premium-dark">
             <div class="d-flex h-100 justify-content-center align-items-center">
                 <b-col md="8" class="mx-auto app-login-box">
-                    <div class="app-logo-inverse mx-auto mb-3"/>
+                    <div id="title">
+                        My Asset
+                    </div>
 
                     <div class="modal-dialog w-100">
                         <div class="modal-content">
@@ -21,6 +23,7 @@
                                     <b-form-input id="exampleInput1"
                                                   type="email"
                                                   required
+                                                  v-model="email"
                                                   placeholder="Enter email...">
                                     </b-form-input>
                                 </b-form-group>
@@ -29,6 +32,7 @@
                                     <b-form-input id="exampleInput12"
                                                   type="text"
                                                   required
+                                                  v-model="username"
                                                   placeholder="Enter username...">
                                     </b-form-input>
                                 </b-form-group>
@@ -39,6 +43,7 @@
                                             <b-form-input id="exampleInput2"
                                                           type="password"
                                                           required
+                                                          v-model="password"
                                                           placeholder="Enter password...">
                                             </b-form-input>
                                         </b-form-group>
@@ -49,23 +54,17 @@
                                             <b-form-input id="exampleInput2"
                                                           type="password"
                                                           required
+                                                          v-model="passwordconfirm"
                                                           placeholder="Repeat password...">
                                             </b-form-input>
                                         </b-form-group>
                                     </div>
                                 </div>
-                                <b-form-checkbox name="check" id="exampleCheck">
-                                    Accept our <a href="javascript:void(0);">Terms and Conditions</a>.
-                                </b-form-checkbox>
                                 <div class="divider"/>
-                                <h6 class="mb-0">
-                                    Already have an account?
-                                    <a href="javascript:void(0);" class="text-primary">Sign in</a>
-                                </h6>
                             </div>
                             <div class="modal-footer d-block text-center">
                                 <b-button color="primary" class="btn-wide btn-pill btn-shadow btn-hover-shine"
-                                          size="lg">Create Account
+                                          size="lg" @click="signUp">Create Account
                                 </b-button>
                             </div>
                         </div>
@@ -78,3 +77,48 @@
         </div>
     </div>
 </template>
+
+<script>
+    import firebase from 'firebase'
+
+    export default {
+        name: 'registerBox',
+        data(){
+            return{
+                email:'',
+                password:'',
+                username:'',
+                passwordconfirm:''
+            }
+        },
+        methods:{
+            signUp(){
+                if(this.passwordconfirm!=this.password) alert('Check you password again!')
+                firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
+                    .then((user)=>{
+                        user.username=this.username;
+                        alert('Sign Up success! Welcome'+user.username);
+                        this.email=''
+                        this.password=''
+                        this.passwordconfirm=''
+                        this.username=''
+                        location.replace('/');
+                    })
+                    .catch((error)=>{
+                        alert(error);
+                    })
+            }
+        }
+    }
+</script>
+
+<style>
+    #title{
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        color: white;
+        font-family: Apple;
+    }
+</style>
+

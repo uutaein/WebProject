@@ -12,7 +12,7 @@
                                 <div class="h5 modal-title text-center">
                                     <h4 class="mt-2">
                                         <div>Welcome ,</div>
-                                        <span>Please sign in or sign up your account below.</span>
+                                        <span>Please sign in to your account below.</span>
                                     </h4>
                                 </div>
                                 <b-form-group id="exampleInputGroup1"
@@ -67,15 +67,7 @@
         },
         methods:{
             signUp(){
-                firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
-                    .then((user)=>{
-                        alert('Sign Up success!'+user);
-                        this.email=''
-                        this.password=''
-                    })
-                    .catch((error)=>{
-                        alert(error);
-                    })
+                location.replace('/Register')
             },
             signInEmail(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)

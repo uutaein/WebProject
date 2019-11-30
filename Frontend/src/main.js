@@ -14,14 +14,14 @@ Vue.config.productionTip = false;
 
 var config = 
 {
-    apiKey: "AIzaSyDXnx-Lqn8YH8UoiPv6Awetywx2wK6HGdw",
-    authDomain: "webproject-6135b.firebaseapp.com",
-    databaseURL: "https://webproject-6135b.firebaseio.com",
-    projectId: "webproject-6135b",
-    storageBucket: "webproject-6135b.appspot.com",
-    messagingSenderId: "722237715982",
-    appId: "1:722237715982:web:94a855e17dcd65f9306e5f",
-    measurementId: "G-XHZEQ7ZCV3"
+    apiKey: "AIzaSyCdKZCyU4RDdjECSPt7QHusuyoQg3ZKKD0",
+    authDomain: "wsdtp-4aa53.firebaseapp.com",
+    databaseURL: "https://wsdtp-4aa53.firebaseio.com",
+    projectId: "wsdtp-4aa53",
+    storageBucket: "wsdtp-4aa53.appspot.com",
+    messagingSenderId: "100505156541",
+    appId: "1:100505156541:web:0b87e7e0532b4b8ec830d4",
+    measurementId: "G-QBJZQM117X"
 };
 firebase.initializeApp(config);
 

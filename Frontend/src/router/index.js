@@ -10,20 +10,20 @@ export default new Router({
     routes: [
 
         // Dashboards
-        {
-            path: '/',
-            name: 'analytics',
-            component: () => import('../Layout/Components/Dashboards/Analytics.vue'),
-        },
+        // {
+        //     path: '/',
+        //     name: 'analytics',
+        //     component: () => import('../Layout/Components/Dashboards/Analytics.vue'),
+        // },
 
 
         // Login
-        // {
-        //     path: '/',
-        //     name: 'login',
-        //     meta: {layout: 'userpages'},
-        //     component: () => import('../Layout/Components/LoginBoxed.vue'),
-        // },
+        {
+            path: '/',
+            name: 'login',
+            meta: {layout: 'userpages'},
+            component: () => import('../Layout/Components/LoginBoxed.vue'),
+        },
 
         // Pages
         {

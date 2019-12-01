@@ -61,7 +61,17 @@
                                 title: 'Register Boxed',
                             },
                         ]
+
                     },
+                    {
+                        title: 'Pages2',
+                        child:[
+                            {
+                                href: '/pages2',
+                                title : 'Chart'
+                            }
+                        ]
+                    }
                 ],
                 collapsed: true,
 

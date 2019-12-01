@@ -16,14 +16,20 @@ var connection = mysql.createConnection({
 connection.connect();
 
 //Made by 201521005 , 박병건 
-app.get('/',function(req,res,next){
-    
-    connection.query(`SELECT * from c005930 WHERE date=20191120`,function(err,result){
+app.post('/',function(req,res,next){
+        console.log("body:  "+ req.body.start);
+    connection.query(`SELECT * from c005930 WHERE date= ${req.body.start}`,function(err,result){
         console.log(result);
 
         res.send(result);
     })
 })
-
+// app.get('/',function(req,res,next){
+//     console.log("req.body = " + req.body)
+//     connection.query(`SELECT * from c005930 WHERE date=${req.body}`,function(err,result){
+//         console.log("result : " + result);
+//         res.send(result);
+//     })
+// })
 
 module.exports = app

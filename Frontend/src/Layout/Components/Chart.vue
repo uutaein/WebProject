@@ -14,14 +14,16 @@ export default{
             start : ""
         }
     },
-    methods:{
-        create(){
-            this.$axios.post('test',{start:this.start}).then(function(response){
-                console.log("response : " + response[0]);
-                var test_sql = response;
-                console.log(test_sql.data);
-            })
+    methods : 
+    {
+        create()
+        {
+            this.$store.dispatch('addDataToChart');
         }
+    },
+    mounted()
+    {
+
     }
     
 }

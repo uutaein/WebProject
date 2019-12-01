@@ -9,7 +9,9 @@ export default {
 
             datacollection: {
                 //Data to be represented on x-axis
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',],
+                
+                //labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',],
+                labels : this.$store.state.chart1_labels,
                 datasets: [
                     {
                         label: 'My First dataset',
@@ -31,7 +33,8 @@ export default {
                         pointHoverBorderWidth: 2,
                         pointRadius: 4,
                         pointHitRadius: 10,
-                        data: [65, 59, 80, 81, 46, 55, 38, 59, 80, 72]
+                        //data: [65, 59, 80, 81, 46, 55, 38, 59, 80, 72]
+                        data : this.$store.state.chart1_data
                     }
                 ]
             },
@@ -75,5 +78,6 @@ export default {
     mounted() {
         //renderChart function renders the chart with the datacollection and options object.
         this.renderChart(this.datacollection, this.options)
-    }
+    },
+
 }

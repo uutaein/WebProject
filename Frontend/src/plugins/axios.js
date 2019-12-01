@@ -9,3 +9,5 @@ const firebaseAPI = axios.create({
 });
 
 Vue.prototype.$axios = firebaseAPI
+
+export default firebaseAPI

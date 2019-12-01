@@ -9,7 +9,11 @@ import Default from './Layout/Wrappers/baseLayout.vue';
 import Pages from './Layout/Wrappers/pagesLayout.vue';
 
 import firebase from "firebase";
-import './plugins/axios';
+import axios from './plugins/axios';
+import store from './store';
+
+Vue.prototype.$http = axios;
+
 Vue.config.productionTip = false;
 
 var config = 
@@ -33,6 +37,7 @@ Vue.component('userpages-layout', Pages);
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 });

@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="text-center d-block p-3 card-footer">
-                <button class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg">
+                <button class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg" v-on:click="create()">
                   <span class="mr-2 opacity-7">
                       <i class="icon icon-anim-pulse ion-ios-analytics-outline"></i>
                   </span>
@@ -843,7 +843,21 @@
             icon: 'pe-7s-plane icon-gradient bg-tempting-azure',
         }),
 
-        methods: {},
+        methods: {
+            create() {
+                this.$axios.get('test')
+                    .then(r => console.log(r));
+            },
+            read() {
+
+            },
+            update() {
+
+            },
+            del() {
+
+            },
+        },
 
     }
 

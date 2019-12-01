@@ -15,7 +15,7 @@
                             <i class="pe-7s-scissors text-white opacity-8"></i></div>
                         <div class="widget-chart-content">
                             <div class="widget-subheading">Cash Deposits</div>
-                            <div class="widget-numbers">1,7M</div>
+                            <div class="widget-numbers">{{ money }}</div>
                             <div class="widget-description opacity-8 text-focus">
                                 <div class="d-inline text-danger pr-1">
                                     <font-awesome-icon icon="angle-down"/>
@@ -841,12 +841,13 @@
             heading: 'Analytics Dashboard',
             subheading: 'This is an example dashboard created using build-in elements and components.',
             icon: 'pe-7s-plane icon-gradient bg-tempting-azure',
+            money : 10000,
         }),
 
         methods: {
             create() {
                 this.$axios.get('test')
-                    .then(r => console.log(r));
+                    .then(r =>  (this.money = r.data[0].high));
             },
             read() {
 

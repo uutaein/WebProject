@@ -31,7 +31,7 @@ export default {
                         pointHoverBorderWidth: 2,
                         pointRadius: 4,
                         pointHitRadius: 10,
-                        data: [65, 59, 80, 81, 46, 55, 38, 59, 80,]
+                        data: [65, 59, 80, 81, 46, 55, 38, 59, 80, 72]
                     }
                 ]
             },

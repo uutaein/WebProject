@@ -33,10 +33,15 @@ export default new Router({
             component: () => import('../Layout/Components/RegisterBoxed.vue'),
         },
         {
-            path: '/pages2',
+            path: '/pages/Chart',
             name : 'Chart',
             component:()=>import('../Layout/Components/Chart.vue'),
         },
+        {
+            path: '/pages/Strategy-Simulator',
+            name : 'Strategy Simulator',
+            component:()=>import('../Layout/Components/StrategySimulator.vue'),
+        }
         
         
     ]

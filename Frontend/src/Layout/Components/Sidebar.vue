@@ -53,25 +53,16 @@
                         icon: 'pe-7s-browser',
                         child: [
                             {
-                                href: '/pages/login-boxed',
-                                title: 'Login Boxed',
+                                href: '/pages/Strategy-Simulator',
+                                title: 'Strategy Simulator',
                             },
                             {
-                                href: '/pages/register-boxed',
-                                title: 'Register Boxed',
+                                href: '/pages/Chart',
+                                title: 'Chart',
                             },
                         ]
 
                     },
-                    {
-                        title: 'Pages2',
-                        child:[
-                            {
-                                href: '/pages2',
-                                title : 'Chart'
-                            }
-                        ]
-                    }
                 ],
                 collapsed: true,
 

@@ -21,9 +21,9 @@ app.post('/',function(req,res,next){
         //connection.query(`SELECT * from c005930 join c000020 WHERE date= ${req.body.start}`,function(err,result)
         
         //made by 201521005 박병건
-        connection.query(`SELECT * from c005930 WHERE date between '2019-11-20' and '2019-11-26'`,function(err,result){
+        connection.query(`SELECT * from c005930 WHERE date between '2019-10-26' and '2019-11-26'`,function(err,result){
         //connection.query(`select * from c005930 join c066570 where c005930.date = c066570.date and c066570.date between '2019-11-20' and '2019-11-26'`,function(err,result){
-        console.log("res : " + result);
+        console.log(result);
         res.send(result);
     })
 })

@@ -17,7 +17,8 @@ connection.connect();
 
 //Made by 201521005 , 박병건 
 app.get('/',function(req,res,next){
-    connection.query(`SELECT * from c000020 WHERE date>20191120`,function(err,result){
+    
+    connection.query(`SELECT * from c005930 WHERE date=20191120`,function(err,result){
         console.log(result);
 
         res.send(result);

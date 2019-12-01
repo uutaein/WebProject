@@ -51,8 +51,8 @@ export default {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            display: false,
-                            beginAtZero: true
+                            display: true,
+                            beginAtZero: false
                         },
                         gridLines: {
                             display: false
@@ -71,7 +71,7 @@ export default {
                     display: false
                 },
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: true
             }
         }
     },

@@ -19,7 +19,7 @@ export default{
             this.$axios.post('test',{start:this.start}).then(function(response){
                 console.log("response : " + response[0]);
                 var test_sql = response;
-                console.log(test_sql.data[0].open);
+                console.log(test_sql.data);
             })
         }
     }

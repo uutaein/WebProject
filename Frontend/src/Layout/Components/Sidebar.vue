@@ -43,7 +43,7 @@
                         icon: 'pe-7s-rocket',
                         child: [
                             {
-                                href: '/',
+                                href: '/Dashboards',
                                 title: 'Analytics',
                             },
                         ]

@@ -93,11 +93,14 @@
         },
         methods:{
             signUp(){
-                if(this.passwordconfirm!=this.password) alert('Check you password again!')
+                if(this.passwordconfirm!=this.password) {
+                    alert('Check you password again!')
+                    return;
+                }
                 firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
                     .then((user)=>{
                         user.username=this.username;
-                        alert('Sign Up success! Welcome'+user.username);
+                        alert('Sign Up success! Welcome  '+user.username);
                         this.email=''
                         this.password=''
                         this.passwordconfirm=''

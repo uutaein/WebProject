@@ -24,11 +24,93 @@
             <br>
             <button @click="validation">입력완료</button>
         </div>
+
+         <div class="col-sm-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
+                            Technical Support
+                        </div>
+                    </div>
+                    <div class="p-0 card-body">
+                        <div class="p-1 slick-slider-sm mx-auto">
+                            <div class="widget-chart widget-chart2 text-left p-0">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-content widget-chart-content-lg pb-0">
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-title opacity-5 text-muted text-uppercase">Helpdesk
+                                                Tickets
+                                            </div>
+                                        </div>
+                                        <div class="widget-numbers">
+                                            <div class="widget-chart-flex">
+                                                <div>
+                                                    <span class="text-warning">34</span>
+                                                </div>
+                                                <div
+                                                    class="widget-title ml-2 font-size-lg font-weight-normal text-dark">
+                                                    <span class="opacity-5 text-muted pl-2 pr-1">5%</span>
+                                                    increase
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-chart-wrapper he-auto opacity-10 m-0">
+                                        <chart1 :height="145"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
+                            Sales Progress</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="p-3 bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Total Orders</div>
+                                                <div class="widget-subheading">Last year expenses</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-success">
+                                                    <small>$</small>
+                                                    1896
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                     aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 43%;"></div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left">YoY Growth</div>
+                                                <div class="sub-label-right">100%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
     </div>
 </template>
 
 <script>
+    import chart1 from './Dashboards/Analytics/chart1';
+    import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+
     export default {
+        components: {
+            VuePerfectScrollbar,
+            chart1,
+        },
         name: "StrategySimulator",
         data(){
             return{

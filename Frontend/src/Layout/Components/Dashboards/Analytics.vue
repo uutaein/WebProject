@@ -846,8 +846,8 @@
 
         methods: {
             create() {
-                this.$axios.get('test')
-                    .then(r =>  (this.money = r.data[0].high));
+                // this.$axios.get('test')
+                //     .then(r =>  (this.money = r.data[0].high));
             },
             read() {
 

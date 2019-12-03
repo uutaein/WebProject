@@ -155,7 +155,7 @@
                 //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
                 var a = 0;
                 for(var i=0;i<this.ratio.length;i++) {
-                    a += this.ratio[i]
+                    a += Number(this.ratio[i]);
                 }
                 if(a!=100){
                     alert('비중의 총합이 100이 되도록 재설정하세요.')
@@ -163,7 +163,8 @@
                 }
                 else{
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
-
+                    this.$http.post('/test/',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
+                        .then()
                 }
             },
             datechangeInit: function () {

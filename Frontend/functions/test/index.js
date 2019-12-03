@@ -23,6 +23,12 @@ app.get('/:idx', function (req, res, next) {
     })
 });
 
+app.post('/:idx', function (req, res, next) {
+    var date= req.params.idx;//입력받은 날짜
+    var stockCode=req.body.stockCode;//선택한 종목코드의 배열
+    console.log(stockCode);
+});
+
 //Made by 201521005 , 박병건 
 app.post('/',function(req,res,next){
         //select * from `c005930` join `c066570` on c005930.date = c066570.date and c005930.date between '2019-11-20' and '2019-11-26'

@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-chart-wrapper he-auto opacity-10 m-0">
-                                        <SSchart :height="145"/>
+                                        <SSchart :height="145" v-if="this.$store.state.SS_chart_done"/>
                                     </div>
                                 </div>
                             </div>

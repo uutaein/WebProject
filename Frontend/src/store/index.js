@@ -16,6 +16,7 @@ export default new Vuex.Store({
         SS_chart_labels : [],
         SS_chart_data1 : [],
         SS_chart_data2 : [],
+        SS_chart_done : false
     },
     // 전체돈 * ration / 주식개별  
     // 전체돈 * 코스닥 가격  
@@ -52,6 +53,8 @@ export default new Vuex.Store({
 
             //첫날 코스피 산 개수
             state.SS_init_index_stock_num = state.SS_init_money / payload.data[payloadSize][0].close;
+            console.log(state.SS_init_index_stock_num);
+
             for(var i=0; i<=payloadNumSize; i++)
             {
                 var tdate = payload.data[payloadSize][i].date
@@ -71,7 +74,7 @@ export default new Vuex.Store({
             // 초기 구매 주식 개수
             for(var i=0; i<payloadSize; i++)
             {
-                var tinit_stocks = state.SS_init_money*state.SS_ratio[i] / payload.data[i][payloadSize].close/100;
+                var tinit_stocks = state.SS_init_money*state.SS_ratio[i] / payload.data[i][payloadNumSize].close/100;
                 state.SS_init_stocks.push(tinit_stocks);
             }
             console.log(state.SS_init_stocks);
@@ -81,9 +84,11 @@ export default new Vuex.Store({
             {
                 for(var j=0; j<payloadSize; j++)
                 {
-                    state.SS_chart_data2[i] += Number(state.SS_init_stocks[j] * payload.data[j][payloadNumSize-i].close);
+                    state.SS_chart_data2[i] += Number(state.SS_init_stocks[j] * payload.data[j][i].close);
                 }
             }
+            state.SS_chart_data2.reverse();
+            state.SS_chart_done = true;
             console.log(state.SS_chart_data2);
         },
         calculatePortfolioFail(state, payload)

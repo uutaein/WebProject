@@ -1,5 +1,5 @@
 <template>
-    <div class="app-header header-shadow">
+    <!--<div class="app-header header-shadow">
         <div class="logo-src"/>
         <div class="app-header__content">
             <div class="app-header-left">
@@ -27,7 +27,7 @@
                 </b-button>
             </span>
         </div>
-    </div>
+    </div>-->
 </template>
 
 <script>

@@ -15,6 +15,13 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
+app.get('/pages/Strategy-Simulator', function (req, res, next) {
+    var code_list = connection.query(`select * from code_list limit 1,10`,function(err,result){
+        res.send(result);
+    })
+    //var movie = connection.query(`select * ${}`)
+});
+
 //Made by 201521005 , 박병건 
 app.post('/',function(req,res,next){
         //select * from `c005930` join `c066570` on c005930.date = c066570.date and c005930.date between '2019-11-20' and '2019-11-26'

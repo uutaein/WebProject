@@ -8,8 +8,8 @@
             <p>포트폴리오를 입력하세요</p>
             <hr>
             <p>시작날짜를 선택하세요</p>
-            <input v-model="date" type="date" placeholder="날짜">
-            <p>초기자본금을 설정하세요</p>
+            <input v-model="date" type="date" placeholder="날짜" @change="datechangeInit">
+            <p>초기자본금을 설정하세요(단위 : 만원)</p>
             <input v-model="budget" type="number" placeholder="초기자본금 설정"><hr>
             <button @click="addStock">종목추가</button>
             <button @click="deleteStock">종목삭제</button>
@@ -118,7 +118,7 @@
                 date:'',
                 budget:'',
                 stockCode:[],
-                stockList:[{code:1111, name:'t1',start_date:11111}, {code:2222, name:'t2',start_date:22222}],
+                stockList:[],
                 ratio:[],
                 tmp:0
 
@@ -127,7 +127,19 @@
         methods:{
             addStock:function () {
                 //종목추가
-                this.stockNum.push(null);
+                if(this.date=='') {
+                    alert('날짜를 먼저 선택해주세요')
+                    return
+                }
+                else {
+                    this.stockNum.push(null);
+                    if(this.stockList.length==0) {//주
+                        this.$http.get('/').then(response=>{
+                            console.log(response.data);
+                            this.stockList=response.data;
+                        })
+                    }
+                }
             },
             deleteStock:function () {
                 //종목삭제할때 input값 초기화할때 쓰는 함수
@@ -149,8 +161,12 @@
                     return false
                 }
                 else{
-                    //validation하고 맞으면 종목들에 해당하는 데이터로 그래프 만들기
+                    //validation하고 맞으면 입력받은
                 }
+            },
+            datechangeInit: function () {
+                this.stockNum.splice(0,this.stockNum.length-1);
+                this.stockCode.splice(0,this.stockCode.length-1);
             }
         },
         computed:{

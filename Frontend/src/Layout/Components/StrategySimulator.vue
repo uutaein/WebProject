@@ -162,8 +162,11 @@
                 }
                 else{
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
-                    this.$http.post('/test/',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
-                        .then()
+                    this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
+                        .then(response=>{
+                            console.log(response.data);
+                            console.log(response.data[0].date);
+                        });
                 }
             },
             datechangeInit: function () {

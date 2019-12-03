@@ -7,6 +7,7 @@ app.use(cors({ origin : true}))
 //Made by 201521005 , 박병건 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
+    multipleStatements: true,
     host     : 'db-mysql.cj5nhbnzm5ke.ap-northeast-2.rds.amazonaws.com',
     user     : 'admin',
     password : 'adminroot',
@@ -27,10 +28,24 @@ app.get('/:idx', function (req, res, next) {
     //var movie = connection.query(`select * ${}`)
 });
 
-app.post('/:idx', function (req, res, next) {
-    var date= req.params.idx;//입력받은 날짜
+app.post('/api', function (req, res, next) {
+    var date= req.body.date;//입력받은 날짜
+    console.log(date);
     var stockCode=req.body.stockCode;//선택한 종목코드의 배열
     console.log(stockCode);
+    var querylist = '';
+    for(i=0;i<stockCode.length;i++)
+    {
+        //query = 'SELECT * from c' +stockCode[i] + 'where date between' +date+ 'and "2019-11-20";';
+        query = `SELECT * from c${stockCode[i]} where date between '${date}' and '2019-11-20';`
+        querylist += query;
+        
+    }
+    connection.query(querylist,function(req,result){
+        console.log(result);
+        res.send(result);
+    })
+    console.log(querylist);
 });
 
 //Made by 201521005 , 박병건 

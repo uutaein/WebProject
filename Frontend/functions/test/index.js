@@ -36,6 +36,7 @@ app.post('/api', function (req, res, next) {
         querylist += query;
         
     }
+    querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-20';`
     connection.query(querylist,function(req,result){
         console.log(result);
         res.send(result);

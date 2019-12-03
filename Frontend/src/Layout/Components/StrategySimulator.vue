@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-chart-wrapper he-auto opacity-10 m-0">
-                                        <chart1 :height="145"/>
+                                        <SSchart :height="145"/>
                                     </div>
                                 </div>
                             </div>
@@ -103,13 +103,13 @@
 </template>
 
 <script>
-    import chart1 from './Dashboards/Analytics/chart1';
+    import SSchart from './Analytics/SS_chart1';
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
     export default {
         components: {
             VuePerfectScrollbar,
-            chart1,
+            SSchart,
         },
         name: "StrategySimulator",
         data(){
@@ -117,9 +117,9 @@
                 stockNum:[],
                 date:'',
                 budget:'',
-                stockCode:[],
-                stockList:[],
-                ratio:[],
+                stockCode: [],
+                stockList: [],
+                ratio: this.$store.state.SS_ratio,
                 tmp:0,
                 valid:false
 
@@ -162,14 +162,10 @@
                     return false
                 }
                 else{
+                    this.valid=true;
+                    this.$store.dispatch('calculatePortfolio',{date:this.date,stockCode:this.stockCode,ratio:this.ratio});
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
-                    this.$store.dispatch('addDataToChart');
-                    this.valid=true
-                    this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
-                        .then(response=>{
-                            console.log(response.data);
-                            console.log(response.data[0].date);
-                        });
+
                 }
             },
             datechangeInit: function () {

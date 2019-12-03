@@ -118,7 +118,7 @@
                 date:'',
                 budget:'',
                 stockCode:[],
-                stockList:[{code:1111,name:'test1',start_date:'01-01'},{code:2222,name:'test2',start_date:'02-02'}],
+                stockList:[],
                 ratio:[],
                 tmp:0
 
@@ -134,7 +134,8 @@
                 else {
                     this.stockNum.push(null);
                     if(this.stockList.length==0) {
-                        this.$http.get('test').then(response=>{
+                        console.log(this.date)
+                        this.$http.get('/test/:'+this.date).then(response=>{
                             console.log(response.data);
                             this.stockList=response.data;
                         })
@@ -161,7 +162,7 @@
                     return false
                 }
                 else{
-                    //validation하고 맞으면 입력받은 data back으로 보내
+                    //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
 
                 }
             },

@@ -15,8 +15,11 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-app.get('/', function (req, res, next) {
-    var code_list = connection.query(`select * from code_list limit 1,10`,function(err,result){
+app.get('/:idx', function (req, res, next) {
+    //날짜 req.params.idx로불러 오면됨
+    var date=req.params.idx.substring(1,req.params.idx.length);
+    console.log(`select * from code_list where start_date < ${date} limit 1,20`)
+    var code_list = connection.query(`select * from code_list where start_date < ${date} limit 1,20`,function(err,result){
         res.send(result);
     })
     //var movie = connection.query(`select * ${}`)

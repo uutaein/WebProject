@@ -30,7 +30,7 @@
                     <div class="card-header-tab card-header">
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                             <i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"> </i>
-                            Technical Support
+                            내 포트폴리오 결과
                         </div>
                     </div>
                     <div class="p-0 card-body">
@@ -39,14 +39,13 @@
                                 <div class="widget-chat-wrapper-outer">
                                     <div class="widget-chart-content widget-chart-content-lg pb-0">
                                         <div class="widget-chart-flex">
-                                            <div class="widget-title opacity-5 text-muted text-uppercase">Helpdesk
-                                                Tickets
+                                            <div class="widget-title opacity-5 text-muted text-uppercase">최종 수익률
                                             </div>
                                         </div>
                                         <div class="widget-numbers">
                                             <div class="widget-chart-flex">
                                                 <div>
-                                                    <span class="text-warning">34</span>
+                                                    <span class="text-warning">{{ this.$store.state.SS_profit }}%</span>
                                                 </div>
                                                 <div
                                                     class="widget-title ml-2 font-size-lg font-weight-normal text-dark">

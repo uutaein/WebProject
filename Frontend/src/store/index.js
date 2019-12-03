@@ -16,7 +16,8 @@ export default new Vuex.Store({
         SS_chart_labels : [],
         SS_chart_data1 : [],
         SS_chart_data2 : [],
-        SS_chart_done : false
+        SS_chart_done : false,
+        SS_profit : 0
     },
     // 전체돈 * ration / 주식개별  
     // 전체돈 * 코스닥 가격  
@@ -88,6 +89,7 @@ export default new Vuex.Store({
                 }
             }
             state.SS_chart_data2.reverse();
+            state.SS_profit = (state.SS_chart_data2[payloadNumSize] - state.SS_init_money ) / state.SS_init_money * 100;
             state.SS_chart_done = true;
             console.log(state.SS_chart_data2);
         },

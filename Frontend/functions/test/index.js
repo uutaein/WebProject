@@ -21,6 +21,7 @@ app.get('/:idx', function (req, res, next) {
     console.log(date)
     var code_list = connection.query(`select code,name,start_date from code_list where start_date < '${date}'`,function(err,result){
         console.log(result)
+
         res.send(result);
     })
     //var movie = connection.query(`select * ${}`)
@@ -37,6 +38,9 @@ app.post('/',function(req,res,next){
         console.log(result);
         res.send(result);
     })
+})
+app.post('/strategy',function(req,res,next){
+    
 })
 // app.get('/',function(req,res,next){
 //     console.log("req.body = " + req.body)

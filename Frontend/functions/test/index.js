@@ -17,13 +17,10 @@ connection.connect();
 
 app.get('/:idx', function (req, res, next) {
     //날짜 req.params.idx로불러 오면됨
-    var date=req.params.idx.substring(1,req.params.idx.length);
-    console.log(date)
-    var code_list = connection.query(`select * from code_list where start_date < '${date}' limit 1,20`,function(err,result){
+    var code_list = connection.query(`select * from code_list where start_date <= '${req.params.idx}' limit 1,20`,function(err,result){
         console.log(result)
         res.send(result);
     })
-    //var movie = connection.query(`select * ${}`)
 });
 
 //Made by 201521005 , 박병건 

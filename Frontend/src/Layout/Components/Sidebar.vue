@@ -60,6 +60,10 @@
                                 href: '/pages/Chart',
                                 title: 'Chart',
                             },
+                            {
+                                href: '/pages/Stat-Strategy',
+                                title: 'Stat Strategy',
+                            }
                         ]
 
                     },

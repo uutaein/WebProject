@@ -163,6 +163,7 @@
                 }
                 else{
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
+                    this.$store.dispatch('addDataToChart');
                     this.valid=true
                     this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
                         .then(response=>{

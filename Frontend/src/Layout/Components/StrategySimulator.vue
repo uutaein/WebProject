@@ -25,7 +25,7 @@
             <button @click="validation">입력완료</button>
         </div>
 
-         <div class="col-sm-12 col-lg-6">
+         <div class="col-sm-12 col-lg-6" v-if="valid">
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-chart-wrapper he-auto opacity-10 m-0">
-                                        <chart1 :height="145"/>
+                                        <SSchart :height="145"/>
                                     </div>
                                 </div>
                             </div>
@@ -103,13 +103,13 @@
 </template>
 
 <script>
-    import chart1 from './Dashboards/Analytics/chart1';
+    import SSchart from './Analytics/SS_chart1';
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
     export default {
         components: {
             VuePerfectScrollbar,
-            chart1,
+            SSchart,
         },
         name: "StrategySimulator",
         data(){
@@ -117,10 +117,11 @@
                 stockNum:[],
                 date:'',
                 budget:'',
-                stockCode:[],
-                stockList:[],
-                ratio:[],
-                tmp:0
+                stockCode: [],
+                stockList: [],
+                ratio: this.$store.state.SS_ratio,
+                tmp:0,
+                valid:false
 
             }
         },
@@ -161,12 +162,14 @@
                     return false
                 }
                 else{
+                    this.valid=true;
+                    this.$store.dispatch('calculatePortfolio',{date:this.date,stockCode:this.stockCode,ratio:this.ratio});
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
-                    this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
-                        .then(response=>{
-                            console.log(response.data);
-                            console.log(response.data[0].date);
-                        });
+                    // this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
+                    //     .then(response=>{
+                    //         console.log(response.data[0][0].low);
+                    //         console.log(response.data[0]);
+                    //     });
                 }
             },
             datechangeInit: function () {
@@ -174,6 +177,7 @@
                 this.stockList.splice(0,this.stockList.length);
                 this.stockCode.splice(0,this.stockCode.length);
                 this.ratio.splice(0,this.ratio.length);
+                this.valid=false;
             }
         }
     }

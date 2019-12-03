@@ -11,8 +11,8 @@
             <input v-model="date" type="date" placeholder="날짜" @change="datechangeInit">
             <p>초기자본금을 설정하세요(단위 : 만원)</p>
             <input v-model="budget" type="number" placeholder="초기자본금 설정"><hr>
-            <button @click="addStock">종목추가</button>
-            <button @click="deleteStock">종목삭제</button>
+            <b-button variant="outline-info" @click="addStock" size="sm">종목추가</b-button>
+            <b-button variant="outline-danger" @click="deleteStock" size="sm">종목삭제</b-button>
             <div v-for="(idx,i) in stockNum" class="inputContainer" >
                 {{passer(i)}}
                 <label for="stockCode">종목코드</label>
@@ -22,10 +22,10 @@
                 <input v-model="ratio[i]" type="number" placeholder="비중(%)">
             </div>
             <br>
-            <button @click="validation">입력완료</button>
+            <b-button variant="success" @click="validation" size="sm">입력완료</b-button>
         </div>
 
-         <div class="col-sm-12 col-lg-6">
+         <div class="col-sm-12 col-lg-6" v-if="valid">
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -120,7 +120,8 @@
                 stockCode:[],
                 stockList:[],
                 ratio:[],
-                tmp:0
+                tmp:0,
+                valid:false
 
             }
         },
@@ -135,7 +136,7 @@
                     this.stockNum.push(null);
                     if(this.stockList.length==0) {
                         console.log(this.date)
-                        this.$http.get('/test/:'+this.date).then(response=>{
+                        this.$http.get('/test/'+this.date).then(response=>{
                             this.stockList=response.data;
                         })
                     }
@@ -162,6 +163,7 @@
                 }
                 else{
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
+                    this.valid=true
                     this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
                         .then(response=>{
                             console.log(response.data);
@@ -174,6 +176,7 @@
                 this.stockList.splice(0,this.stockList.length);
                 this.stockCode.splice(0,this.stockCode.length);
                 this.ratio.splice(0,this.ratio.length);
+                this.valid=false;
             }
         }
     }

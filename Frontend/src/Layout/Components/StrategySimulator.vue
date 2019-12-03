@@ -136,7 +136,7 @@
                     if(this.stockList.length==0) {
                         console.log(this.date)
                         this.$http.get('/test/:'+this.date).then(response=>{
-                            console.log(response.data);
+                            console.log(response.data[0],response.data[1]);
                             this.stockList=response.data;
                         })
                     }

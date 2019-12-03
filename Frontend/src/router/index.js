@@ -41,7 +41,12 @@ export default new Router({
             path: '/pages/Strategy-Simulator',
             name : 'Strategy Simulator',
             component:()=>import('../Layout/Components/StrategySimulator.vue'),
-        }
+        },
+        {
+            path: '/pages/Stat-Strategy',
+            name : 'Stat Strategy',
+            component:()=>import('../Layout/Components/StatStrategy.vue'),
+        },
         
         
     ]

@@ -165,11 +165,7 @@
                     this.valid=true;
                     this.$store.dispatch('calculatePortfolio',{date:this.date,stockCode:this.stockCode,ratio:this.ratio});
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
-                    // this.$http.post('/test/api',{date:this.date,stockCode:this.stockCode,ratio:this.ratio})
-                    //     .then(response=>{
-                    //         console.log(response.data[0][0].low);
-                    //         console.log(response.data[0]);
-                    //     });
+
                 }
             },
             datechangeInit: function () {

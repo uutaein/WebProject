@@ -1,12 +1,12 @@
 <template>
-    <!--<div class="app-header header-shadow">
+    <div class="app-header header-shadow">
         <div class="logo-src"/>
         <div class="app-header__content">
             <div class="app-header-left">
                 <SearchBox/>
             </div>
             <div class="app-header-right">
-                <UserArea/>
+                <b-button @click="signOut" variant="primary" size="sm">Logout</b-button>
             </div>
         </div>
         <div class="app-header__mobile-menu">
@@ -20,14 +20,10 @@
         </div>
         <div class="app-header__menu">
             <span>
-                <b-button class="btn-icon btn-icon-only" variant="primary" size="sm" v-bind:class="{ 'active' : isOpenMobileMenu }" @click="toggleMobile2('header-menu-open')">
-                    <div class="btn-icon-wrapper">
-                        <font-awesome-icon icon="ellipsis-v"/>
-                    </div>
-                </b-button>
+                <b-button @click="signOut" variant="primary" size="sm">Logout</b-button>
             </span>
         </div>
-    </div>-->
+    </div>
 </template>
 
 <script>
@@ -40,6 +36,7 @@
         faEllipsisV,
     } from '@fortawesome/free-solid-svg-icons'
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+    import firebase from 'firebase'
 
     library.add(
         faEllipsisV,
@@ -63,6 +60,14 @@
 
         },
         methods: {
+            signOut: function(){
+                firebase.auth().signOut().then(function () {
+                    alert('Logout');
+                    location.replace('/')
+                }).catch(function (error) {
+                    alert(error);
+                })
+            },
             toggleMobile(className) {
                 const el = document.body;
                 this.isOpen = !this.isOpen;
@@ -87,3 +92,10 @@
         }
     };
 </script>
+
+<style>
+    b-button{
+        width: 10%;
+        float: right;
+    }
+</style>

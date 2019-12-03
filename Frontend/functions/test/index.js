@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
-app.get('/pages/Strategy-Simulator', function (req, res, next) {
+app.get('/', function (req, res, next) {
     var code_list = connection.query(`select * from code_list limit 1,10`,function(err,result){
         res.send(result);
     })

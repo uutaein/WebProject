@@ -118,7 +118,7 @@
                 date:'',
                 budget:'',
                 stockCode:[],
-                stockList:[],
+                stockList:[{code:1111,name:'test1',start_date:'01-01'},{code:2222,name:'test2',start_date:'02-02'}],
                 ratio:[],
                 tmp:0
 
@@ -133,8 +133,8 @@
                 }
                 else {
                     this.stockNum.push(null);
-                    if(this.stockList.length==0) {//주
-                        this.$http.get('/').then(response=>{
+                    if(this.stockList.length==0) {
+                        this.$http.get('test').then(response=>{
                             console.log(response.data);
                             this.stockList=response.data;
                         })
@@ -161,20 +161,17 @@
                     return false
                 }
                 else{
-                    //validation하고 맞으면 입력받은
+                    //validation하고 맞으면 입력받은 data back으로 보내
+
                 }
             },
             datechangeInit: function () {
-                this.stockNum.splice(0,this.stockNum.length-1);
-                this.stockCode.splice(0,this.stockCode.length-1);
-            }
-        },
-        computed:{
-            setStockList:function () {
-                //날짜선택한거 이후 모든 주식종목 받아서 stockList에 저장
+                this.stockNum.splice(0,this.stockNum.length);
+                this.stockList.splice(0,this.stockList.length);
+                this.stockCode.splice(0,this.stockCode.length);
+                this.ratio.splice(0,this.ratio.length);
             }
         }
-
     }
 </script>
 

@@ -17,14 +17,9 @@ connection.connect();
 
 app.get('/:idx', function (req, res, next) {
     //날짜 req.params.idx로불러 오면됨
-    var date=req.params.idx.substring(1,req.params.idx.length);
-    console.log(date)
-    var code_list = connection.query(`select code,name,start_date from code_list where start_date < '${date}'`,function(err,result){
-        console.log(result)
-
+    var code_list = connection.query(`select code,name,start_date from code_list where start_date < '${req.params.idx}'`,function(err,result){
         res.send(result);
     })
-    //var movie = connection.query(`select * ${}`)
 });
 
 app.post('/:idx', function (req, res, next) {

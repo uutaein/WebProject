@@ -18,30 +18,30 @@ connection.connect();
 
 app.get('/:idx', function (req, res, next) {
     //날짜 req.params.idx로불러 오면됨
-    var code_list = connection.query(`select code,name,start_date from code_list where start_date < '${req.params.idx}' order by code `,function(err,result){
+    var code_list = connection.query(`select code,name,date_format(start_date,'%Y-%m-%d') as date from code_list where start_date < '${req.params.idx}' order by name asc `,function(err,result){
         res.send(result);
     })
 });
 
 app.post('/api', function (req, res, next) {
     var date= req.body.date;//입력받은 날짜
-    console.log(date);
+    //console.log(date);
     var stockCode=req.body.stockCode;//선택한 종목코드의 배열
-    console.log(stockCode);
+    //console.log(stockCode);
     var querylist = '';
     for(i=0;i<stockCode.length;i++)
     {
         //query = 'SELECT * from c' +stockCode[i] + 'where date between' +date+ 'and "2019-11-20";';
-        query = `SELECT * from c${stockCode[i]} where date between '${date}' and '2019-11-20';`
+        query = `SELECT close,date from c${stockCode[i]} where date between '${date}' and '2019-11-26';`
         querylist += query;
         
     }
-    querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-20';`
+    querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-26';`
     connection.query(querylist,function(req,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
-    console.log(querylist);
+    //console.log(querylist);
 });
 
 //Made by 201521005 , 박병건 
@@ -52,7 +52,7 @@ app.post('/',function(req,res,next){
         //made by 201521005 박병건
         connection.query(`SELECT * from c005930 WHERE date between '2019-10-26' and '2019-11-26'`,function(err,result){
         //connection.query(`select * from c005930 join c066570 where c005930.date = c066570.date and c066570.date between '2019-11-20' and '2019-11-26'`,function(err,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
 })

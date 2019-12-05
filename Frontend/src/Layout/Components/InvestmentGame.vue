@@ -326,7 +326,7 @@
 </template>
 
 <script>
-import IGchart from './Analytics/IG_chart1';
+import IGchart from './Analytics/IG_chart1.vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 export default {
@@ -414,6 +414,10 @@ export default {
                 tdatetime = this.parse_string_to_date(this.tstart_date);
                 tdatetime.setMonth(tdatetime.getMonth() + month);
                 this.tend_date = this.date_to_string(tdatetime);
+                if(this.tend_date >= this.end_date)
+                {
+                    this.tend_date = this.end_date;
+                }
             }
             else
             {
@@ -422,6 +426,20 @@ export default {
                 tdatetime = this.parse_string_to_date(this.tstart_date);
                 tdatetime.setMonth(tdatetime.getMonth() + month);
                 this.tend_date = this.date_to_string(tdatetime);
+                if(this.tend_date >= this.end_date)
+                {
+                    this.tend_date = this.end_date;
+                }
+            }
+            //여기서 초기화.
+            if(this.$store.state.IG_chart_done == true)
+            {
+                this.$store.state.IG_chart_done = false;
+                this.$store.state.IG_init_stocks = [];
+                this.$store.state.IG_chart_labels = [];
+                this.$store.state.IG_chart_data1 = [];
+                this.$store.state.IG_chart_data2 = [];
+
             }
             this.$store.dispatch("IGcalculatePortfolio",{
                     start_date : this.tstart_date,

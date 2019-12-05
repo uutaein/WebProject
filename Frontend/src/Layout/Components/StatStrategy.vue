@@ -4,9 +4,11 @@
             주식스탯전략 시뮬레이터<br>
         </h1>
         <p>주식스탯으로 세워보는 나만의 전략</p><hr>
-        <div id="graphzone">
-            그래프 영역
+        <div id="graphzone" style="display: none">
+            <canvas id="Radar" width="300" height="300"></canvas>
         </div>
+        <b-button variant="outline-info" class="graphBtn" v-if="!chartOn" @click="showRadar">그래프 보기</b-button>
+        <b-button variant="outline-info" class="graphBtn" v-if="chartOn" @click="hideRadar">그래프 숨기기</b-button>
         <div>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(0,0)"></b-button>
@@ -15,6 +17,7 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(0)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(0,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(0,1)"></b-button>
+                <span id="scope0">{{MinStat[0]}} ~ {{MaxStat[0]}}</span>
             </span><br><br>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(1,0)"></b-button>
@@ -23,6 +26,7 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(1)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(1,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(1,1)"></b-button>
+                <span id="scope1">{{MinStat[1]}} ~ {{MaxStat[1]}}</span>
             </span><br><br>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(2,0)"></b-button>
@@ -31,6 +35,7 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(2)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(2,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(2,1)"></b-button>
+                <span id="scope2">{{MinStat[2]}} ~ {{MaxStat[2]}}</span>
             </span><br><br>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(3,0)"></b-button>
@@ -39,6 +44,7 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(3)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(3,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(3,1)"></b-button>
+                <span id="scope3">{{MinStat[3]}} ~ {{MaxStat[3]}}</span>
             </span><br><br>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(4,0)"></b-button>
@@ -47,6 +53,7 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(4)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(4,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(4,1)"></b-button>
+                <span id="scope4">{{MinStat[4]}} ~ {{MaxStat[4]}}</span>
             </span><br><br>
             <span class="statBtnContainer">
                 <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(5,0)"></b-button>
@@ -55,24 +62,28 @@
                 <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(5)">?</b-button>
                 <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(5,0)"></b-button>
                 <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(5,1)"></b-button>
+                <span id="scope5">{{MinStat[5]}} ~ {{MaxStat[5]}}</span>
             </span>
         </div>
         <b-button variant="primary" id="findStockBtn">종목 찾기</b-button>
         <b-button variant="focus" id="recommendBtn">추천 전략 보기</b-button>
         <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
-
     </div>
 </template>
 
 <script>
+    import Chart from 'chart.js'
+
     export default {
         name: "StatStrategy",
         data(){
             return{
-                MinStat:[0,0,0,0,0,0],
-                MaxStat:[1,1,1,1,1,1],
+                MinStat:[1,1,1,1,1,1],
+                MaxStat:[2,2,2,2,2,2],
                 StatInfo:[],
-                date:''
+                date:'',
+                chart:'',
+                chartOn:false
             }
         },
         methods:{
@@ -111,28 +122,92 @@
             MinStatAdjust: function (i,adj) {
                 //Minstat의 i번째 값이 adj가 1이면 증가 0이면 감소
                 if(adj==1){
+                    if(this.MaxStat[i]==this.MinStat[i]) {
+                        alert('Min값은 Max값보다 커질 수 없습니다.')
+                        return;
+                    }
                     this.MinStat[i]++;
                     if(this.MinStat[i]>5) this.MinStat[i]=5;
-                    console.log(this.MinStat[i]);
+                    this.calculateRadar()
                 }
                 else if(adj==0){
                     if(this.MinStat[i]==0) return
                     this.MinStat[i]--;
-                    console.log(this.MinStat[i]);
+                    this.calculateRadar()
                 }
+                var scope;
+                if(this.MinStat[i]==this.MaxStat[i]) scope=this.MinStat[i]
+                else scope=this.MinStat[i]+ '~' +this.MaxStat[i]
+                document.getElementById('scope'+i).innerHTML=scope
             },
             MaxStatAdjust: function (i,adj) {
                 //Maxstat의 i번째 값이 adj가 1이면 증가 0이면 감소
                 if(adj==1){
                     this.MaxStat[i]++;
                     if(this.MaxStat[i]>5) this.MaxStat[i]=5;
-                    console.log(this.MaxStat[i]);
+                    this.calculateRadar()
                 }
                 else if(adj==0){
+                    if(this.MinStat[i]==this.MaxStat[i]){
+                        alert('Max값은 Min값보다 작아질 수 없습니다.')
+                        return;
+                    }
                     if(this.MaxStat[i]==0) return
                     this.MaxStat[i]--;
-                    console.log(this.MaxStat[i]);
+                    this.calculateRadar()
                 }
+                var scope;
+                if(this.MinStat[i]==this.MaxStat[i]) scope=this.MinStat[i]
+                else scope=this.MinStat[i]+ '~' +this.MaxStat[i]
+                document.getElementById('scope'+i).innerHTML=scope
+            },
+            calculateRadar:function () {
+                var ctx = document.getElementById("Radar");
+                let radar = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['사이즈', '거래량', '모멘텀', '저평가', '성장성', '수익성'],
+                        datasets: [
+                            {
+                                label: 'Min',
+                                backgroundColor: '#fff',//'rgba(179,181,198,0.2)',
+                                borderColor: '#6CC3D5',
+                                pointBackgroundColor: '#6CC3D5',
+                                pointBorderColor: '#fff',
+                                data: this.MinStat
+                            },
+                            {
+                                label: 'Max',
+                                backgroundColor: 'rgba(255,99,132,0.2)',
+                                borderColor: '#FF7851',
+                                pointBackgroundColor: '#FF7851',
+                                pointBorderColor: '#fff',
+                                data: this.MaxStat
+                            }
+                        ]
+                    },
+                    options: {
+                        tooltips:false,
+                        hover:false,
+                        scale:{
+                            ticks:{
+                                min:0,
+                                max:5,
+                                stepSize:1
+                            }
+                        },
+                        responsive: false
+                    }
+                })
+            },
+            showRadar:function () {
+                this.chartOn=true
+                document.getElementById('graphzone').style.display=""
+                this.calculateRadar()
+            },
+            hideRadar: function () {
+                this.chartOn=false;
+                document.getElementById('graphzone').style.display="none"
             }
         }
     }
@@ -141,6 +216,9 @@
 <style scoped>
 #graphzone{
     height: 350px;
+}
+.graphBtn{
+    width: 12%;
 }
 #findStockBtn{
     width: 15%;

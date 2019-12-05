@@ -557,7 +557,14 @@ export default {
             else
             {
                 var tdatetime;
+                var tdatetime_day;
                 this.tstart_date = this.tend_date;
+                
+                //시작날짜 하루 더하기
+                tdatetime_day = this.parse_string_to_date(this.tstart_date)
+                tdatetime_day.setDate(tdatetime_day.getDate()+1)
+                this.tstart_date = this.date_to_string(tdatetime_day);
+                
                 tdatetime = this.parse_string_to_date(this.tstart_date);
                 tdatetime.setMonth(tdatetime.getMonth() + month);
                 this.tend_date = this.date_to_string(tdatetime);

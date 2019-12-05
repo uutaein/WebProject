@@ -170,7 +170,7 @@
                         datasets: [
                             {
                                 label: 'Min',
-                                backgroundColor: '#fff',//'rgba(179,181,198,0.2)',
+                                backgroundColor: 'rgba(00,181,198,0.2)',
                                 borderColor: '#6CC3D5',
                                 pointBackgroundColor: '#6CC3D5',
                                 pointBorderColor: '#fff',

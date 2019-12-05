@@ -63,6 +63,10 @@
                             {
                                 href: '/pages/Stat-Strategy',
                                 title: 'Stat Strategy',
+                            },
+                             {
+                                href: '/pages/Investment-Game',
+                                title: 'Investment Game',
                             }
                         ]
 

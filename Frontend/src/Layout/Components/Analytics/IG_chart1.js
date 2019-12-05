@@ -11,7 +11,7 @@ export default {
                 //Data to be represented on x-axis
                 
                 //labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',],
-                labels : this.$store.state.SS_chart_labels,
+                labels : this.$store.state.IG_chart_labels,
                 datasets: [
                     {
                         label: '내 포트폴리오',
@@ -33,7 +33,7 @@ export default {
                         // pointRadius: 4,
                         // pointHitRadius: 10,
                         //data: [65, 59, 80, 81, 46, 55, 38, 59, 80, 72]
-                        data : this.$store.state.SS_chart_data2
+                        data : this.$store.state.IG_chart_data2
                     },
                     {
                         label: '코스피 인덱스 추종',
@@ -55,7 +55,7 @@ export default {
                         // pointRadius: 4,
                         // pointHitRadius: 10,
                         //data: [65, 59, 80, 81, 46, 55, 38, 59, 80, 72]
-                        data : this.$store.state.SS_chart_data1
+                        data : this.$store.state.IG_chart_data1
                     }
                 ]
             },

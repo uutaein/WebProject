@@ -17,7 +17,7 @@
                 {{passer(i)}}
                 <label for="stockCode">종목코드</label>
                 <select id="stockCode" v-model="stockCode[i]">
-                    <option v-for="idx in stockList" v-bind:value="idx.code">코드:{{idx.code}} /종목명:{{idx.name}} /상장일자:{{idx.start_date}}</option>
+                    <option v-for="idx in stockList" v-bind:value="idx.code">코드:{{idx.code}} /종목명:{{idx.name}} /상장일자:{{idx.date}}</option>
                 </select>
                 <input v-model="ratio[i]" type="number" placeholder="비중(%)">
             </div>
@@ -38,6 +38,7 @@
                             <div class="widget-chart widget-chart2 text-left p-0">
                                 <div class="widget-chat-wrapper-outer">
                                     <div class="widget-chart-content widget-chart-content-lg pb-0">
+
                                         <div class="widget-chart-flex">
                                             <div class="widget-title opacity-5 text-muted text-uppercase">최종 수익률
                                             </div>
@@ -45,15 +46,23 @@
                                         <div class="widget-numbers">
                                             <div class="widget-chart-flex">
                                                 <div>
-                                                    <span class="text-warning">{{ this.$store.state.SS_profit }}%</span>
-                                                </div>
-                                                <div
-                                                    class="widget-title ml-2 font-size-lg font-weight-normal text-dark">
-                                                    <span class="opacity-5 text-muted pl-2 pr-1">5%</span>
-                                                    increase
+                                                    <span class="text-warning">{{ this.$store.state.SS_whole_profit }}%</span>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-title opacity-5 text-muted text-uppercase">연환산 수익률
+                                            </div>
+                                        </div>
+                                        <div class="widget-numbers">
+                                            <div class="widget-chart-flex">
+                                                <div>
+                                                    <span class="text-warning">{{ this.$store.state.SS_annual_profit }}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="widget-chart-wrapper he-auto opacity-10 m-0">
                                         <SSchart :height="145" v-if="this.$store.state.SS_chart_done"/>
@@ -98,6 +107,7 @@
                     </div>
                 </div>
             </div>
+            
     </div>
 </template>
 
@@ -162,6 +172,7 @@
                 }
                 else{
                     this.valid=true;
+                    
                     this.$store.dispatch('calculatePortfolio',{date:this.date,stockCode:this.stockCode,ratio:this.ratio});
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
 

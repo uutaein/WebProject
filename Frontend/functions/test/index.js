@@ -44,6 +44,26 @@ app.post('/api', function (req, res, next) {
     console.log(querylist);
 });
 
+app.post('/apitest', function (req, res, next) {
+    var start_date= req.body.start_date;//입력받은 날짜
+    var end_date = req.body.end_date;
+    var stockCode=req.body.stockCode;//선택한 종목코드의 배열
+    var querylist = '';
+    for(i=0;i<stockCode.length;i++)
+    {
+        //query = 'SELECT * from c' +stockCode[i] + 'where date between' +date+ 'and "2019-11-20";';
+        query = `SELECT * from c${stockCode[i]} where date between '${start_date}' and '${end_date}';`
+        querylist += query;
+        
+    }
+    querylist += `select close,date from ckospi_index where date between '${start_date}' and '${end_date}';`
+    connection.query(querylist,function(req,result){
+        console.log(result);
+        res.send(result);
+    })
+    console.log(querylist);
+});
+
 //Made by 201521005 , 박병건 
 app.post('/',function(req,res,next){
         //select * from `c005930` join `c066570` on c005930.date = c066570.date and c005930.date between '2019-11-20' and '2019-11-26'

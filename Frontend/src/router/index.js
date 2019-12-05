@@ -47,6 +47,11 @@ export default new Router({
             name : 'Stat Strategy',
             component:()=>import('../Layout/Components/StatStrategy.vue'),
         },
+        {
+            path: '/pages/Investment-Game',
+            name : 'InvestmentGame',
+            component:()=>import('../Layout/Components/InvestmentGame.vue'),
+        },
         
         
     ]

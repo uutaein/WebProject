@@ -20,7 +20,14 @@ export default new Vuex.Store({
         IG_chart_data2 : [],
         IG_chart_done : false,
         IG_profit : 0,
-        
+        IG_max_profit : 0,
+        IG_chart_total_labels : [],
+        IG_chart_total_data1 : [],
+        IG_chart_total_data2 : [],
+        IG_chart_total_done : false,
+        IG_total_net_money : 0,
+        IG_total_net_profit : 0,
+
         SS_init_money : 1000000,
         SS_init_stocks : [],
         SS_init_index_stock_num : 0,
@@ -50,10 +57,9 @@ export default new Vuex.Store({
             for(var i=payload.data.length-1; i>=0; i--)
             {
                 var tdate = payload.data[i].date;
-                state.chart1_labels.push(tdate);
+            
 
                 var tvalue = payload.data[i].high;
-                state.chart1_data.push(tvalue);
             }
         },
         addDataToChartFail(/*state, payload*/)
@@ -153,13 +159,15 @@ export default new Vuex.Store({
             {
                 var tdate = payload.data[payloadSize][i].date
                 state.IG_chart_labels.push(tdate);
+                state.IG_chart_total_labels.push(tdate);
 
                 var tvalue = state.IG_init_index_stock_num * payload.data[payloadSize][i].close;
                 state.IG_chart_data1.push(tvalue);
+                state.IG_chart_total_data1.push(tvalue);
             }
             //날짜, 코스피 지수 차트저장 완료
             //console.log(state.IG_chart_data1);
-
+            
             for(var i=0; i<=payloadNumSize; i++)
             {
                 state.IG_chart_data2.push(Number(0));
@@ -183,9 +191,19 @@ export default new Vuex.Store({
             }
             state.IG_result_money = state.IG_chart_data2[0];
             state.IG_chart_data2.reverse();
+            state.IG_chart_total_data2 = state.IG_chart_total_data2.concat(state.IG_chart_data2);
+
             console.log(state.IG_chart_data2);
             state.IG_profit = (state.IG_chart_data2[payloadNumSize] - startmoney ) / startmoney * 100;
+            if(state.IG_max_profit <= state.IG_profit)
+            {
+                state.IG_max_profit = state.IG_profit;
+            }
+            var total_data_length = state.IG_chart_total_data2.length - 1;
+            state.IG_total_net_money =  state.IG_chart_total_data2[total_data_length] - state.IG_init_money;
+            state.IG_total_net_profit =  (state.IG_chart_total_data2[total_data_length] - state.IG_init_money) / state.IG_init_money * 100;
             state.IG_chart_done = true;
+            state.IG_chart_total_done = true;
     },
         IGcalculatePortfolioFail(state, payload)
         {

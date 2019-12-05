@@ -171,8 +171,8 @@
                        
                         <button
                             class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg"
-                            @click="portfolio_init(3)"
-                            v-if="portfolio_done"
+                            @click="cleanportfolo()"
+                            v-if="invest_once"
                             style="margin : 20px"
                         >
                             <span class="mr-2 opacity-7">
@@ -185,8 +185,8 @@
 
                         <button
                             class="btn-pill btn-shadow btn-wide fsize-1 btn btn-warning btn-lg"
-                            @click="portfolio_init(6)"
-                            v-if="portfolio_done"
+                            @click="invest_once = false"
+                            v-if="invest_once"
                             style="margin : 20px"
                         >
                             <span class="mr-2 opacity-7">
@@ -345,7 +345,134 @@
                                         </li>
                                     </ul>
                                 </b-tab>
-                                <b-tab title="누적 수익률"> </b-tab>
+                                <b-tab title="전체 수익률" active>
+                                    <div class="p-1 slick-slider-sm mx-auto">
+                                        <div
+                                            class="widget-chart widget-chart2 text-left p-0"
+                                        >
+                                            <div
+                                                class="widget-chat-wrapper-outer"
+                                            >
+                                                <div
+                                                    class="widget-chart-content widget-chart-content-lg pb-0"
+                                                >
+                                                    <div
+                                                        class="widget-chart-flex"
+                                                    >
+                                                        <div
+                                                            class="widget-title opacity-5 text-muted text-uppercase"
+                                                        >
+                                                            Helpdesk Tickets
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-numbers">
+                                                        <div
+                                                            class="widget-chart-flex"
+                                                        >
+                                                            <div>
+                                                                <span
+                                                                    class="text-warning"
+                                                                    >34</span
+                                                                >
+                                                            </div>
+                                                            <div
+                                                                class="widget-title ml-2 font-size-lg font-weight-normal text-dark"
+                                                            >
+                                                                <span
+                                                                    class="opacity-5 text-muted pl-2 pr-1"
+                                                                    >5%</span
+                                                                >
+                                                                increase
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="widget-chart-wrapper he-auto opacity-10 m-0"
+                                                >
+                                                    <IGchart2 :height="145" v-if="this.$store.state.IG_chart_total_done"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h6
+                                        class="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal"
+                                    >
+                                        Sales Progress
+                                    </h6>
+                                    <ul class="list-group list-group-flush">
+                                        <li
+                                            class="p-3 bg-transparent list-group-item"
+                                        >
+                                            <div class="widget-content p-0">
+                                                <div
+                                                    class="widget-content-outer"
+                                                >
+                                                    <div
+                                                        class="widget-content-wrapper"
+                                                    >
+                                                        <div
+                                                            class="widget-content-left"
+                                                        >
+                                                            <div
+                                                                class="widget-heading"
+                                                            >
+                                                                Total Orders
+                                                            </div>
+                                                            <div
+                                                                class="widget-subheading"
+                                                            >
+                                                                Last year
+                                                                expenses
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="widget-content-right"
+                                                        >
+                                                            <div
+                                                                class="widget-numbers text-success"
+                                                            >
+                                                                <small>$</small>
+                                                                1896
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="widget-progress-wrapper"
+                                                    >
+                                                        <div
+                                                            class="progress-bar-sm progress-bar-animated-alt progress"
+                                                        >
+                                                            <div
+                                                                class="progress-bar bg-primary"
+                                                                role="progressbar"
+                                                                aria-valuenow="43"
+                                                                aria-valuemin="0"
+                                                                aria-valuemax="100"
+                                                                style="width: 43%;"
+                                                            ></div>
+                                                        </div>
+                                                        <div
+                                                            class="progress-sub-label"
+                                                        >
+                                                            <div
+                                                                class="sub-label-left"
+                                                            >
+                                                                YoY Growth
+                                                            </div>
+                                                            <div
+                                                                class="sub-label-right"
+                                                            >
+                                                                100%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </b-tab>
                             </b-tabs>
                         </b-card>
                     </div>
@@ -378,11 +505,11 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Clients</div>
-                                            <div class="widget-subheading">Total Clients Profit</div>
+                                            <div class="widget-heading">총 수익금</div>
+                                            <div class="widget-subheading">단위(원)</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-primary">$12.6k</div>
+                                            <div class="widget-numbers text-primary">{{this.$store.state.IG_total_net_money}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -397,11 +524,11 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Followers</div>
-                                            <div class="widget-subheading">People Interested</div>
+                                            <div class="widget-heading">최고 구간 수익률</div>
+                                            <div class="widget-subheading">최고 중투 성적</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-danger">45,9%</div>
+                                            <div class="widget-numbers text-danger">{{this.$store.state.IG_max_profit}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -412,11 +539,11 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Products Sold</div>
-                                            <div class="widget-subheading">Total revenue streams</div>
+                                            <div class="widget-heading">전체 수익률</div>
+                                            <div class="widget-subheading">깡통만은 제발</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-warning">$3M</div>
+                                            <div class="widget-numbers text-warning">{{this.$store.state.IG_total_net_profit}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -450,7 +577,7 @@
                                             <div class="widget-subheading">포트폴리오 재구성 회수</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-primary">$12.6k</div>
+                                            <div class="widget-numbers text-primary">{{portfolio_arrange}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -466,6 +593,7 @@
 
 <script>
 import IGchart from './Analytics/IG_chart1.vue';
+import IGchart2 from './Analytics/IG_chart2.vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 export default {
@@ -473,6 +601,7 @@ export default {
      components: {
             VuePerfectScrollbar,
             IGchart,
+            IGchart2,
     },
     name: "InvestmentGame",
     data() {
@@ -490,6 +619,8 @@ export default {
             portfolio_done: false,
             invest_once : false,
             total_invest_count : 0,
+            step_check_toggle : false,
+            portfolio_arrange : 0,
         };
     },
     methods: {
@@ -525,7 +656,17 @@ export default {
             this.ratio[this.tmp] = "";
             this.stockNum.pop();
         },
-
+        //포트폴리오 재구성
+        cleanportfolo: function()
+        {          
+                this.stockCode = [];
+                this.stockNum = [];
+                this.ratio = [];
+                this.portfolio_done = false;
+                this.portfolio_arrange += 1;
+                this.portfolio_done = false;
+                this.invest_once = false;
+        },
         validation: function() {
             //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
             var a = 0;
@@ -582,6 +723,10 @@ export default {
                 this.$store.state.IG_chart_data1 = [];
                 this.$store.state.IG_chart_data2 = [];
 
+            }
+            if(this.$store.state.IG_chart_total_done == true)
+            {
+                this.$store.state.IG_chart_total_done = false;
             }
             this.$store.dispatch("IGcalculatePortfolio",{
                     start_date : this.tstart_date,

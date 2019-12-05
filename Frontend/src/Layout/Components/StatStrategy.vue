@@ -66,7 +66,7 @@
             </span>
         </div>
         <b-button variant="primary" id="findStockBtn">종목 찾기</b-button>
-        <b-button variant="focus" id="recommendBtn">추천 전략 보기</b-button>
+        <b-button variant="focus" id="recommendBtn" @click="showRecommend">추천 전략 보기</b-button>
         <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
     </div>
 </template>
@@ -208,6 +208,9 @@
             hideRadar: function () {
                 this.chartOn=false;
                 document.getElementById('graphzone').style.display="none"
+            },
+            showRecommend: function () {
+                location.replace('/pages/Recommend');
             }
         }
     }

@@ -167,6 +167,36 @@
                             <span class="mr-1">1년 투자하기</span>
                         </button>
                     </div>
+                    <div class="text-center d-block mb-3 card-footer" v-if="invest_once">
+                       
+                        <button
+                            class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg"
+                            @click="portfolio_init(3)"
+                            v-if="portfolio_done"
+                            style="margin : 20px"
+                        >
+                            <span class="mr-2 opacity-7">
+                                <i
+                                    class="icon icon-anim-pulse ion-ios-analytics-outline"
+                                ></i>
+                            </span>
+                            <span class="mr-1">포트폴리오 재구성</span>
+                        </button>
+
+                        <button
+                            class="btn-pill btn-shadow btn-wide fsize-1 btn btn-warning btn-lg"
+                            @click="portfolio_init(6)"
+                            v-if="portfolio_done"
+                            style="margin : 20px"
+                        >
+                            <span class="mr-2 opacity-7">
+                                <i
+                                    class="icon icon-anim-pulse ion-ios-analytics-outline"
+                                ></i>
+                            </span>
+                            <span class="mr-1">존버</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <!--왼쪽 테이블 끝-->
@@ -322,6 +352,115 @@
                 </div>
             </div>
         </div>
+        <!--왼쪽 테이블 끝-->
+        <!--bottom 부분 시작-->
+        <div class="card mb-3">
+            <div class="no-gutters row">
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">초기 자본</div>
+                                            <div class="widget-subheading">단위(원)</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-success">{{this.$store.state.IG_init_money}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Clients</div>
+                                            <div class="widget-subheading">Total Clients Profit</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-primary">$12.6k</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Followers</div>
+                                            <div class="widget-subheading">People Interested</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-danger">45,9%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">Products Sold</div>
+                                            <div class="widget-subheading">Total revenue streams</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-warning">$3M</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">투자 횟수</div>
+                                            <div class="widget-subheading">투자 횟수 합산</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-success">{{total_invest_count}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">포트폴리오 재구성</div>
+                                            <div class="widget-subheading">포트폴리오 재구성 회수</div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div class="widget-numbers text-primary">$12.6k</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -349,6 +488,8 @@ export default {
             stockList: [],
             ratio: this.$store.state.IG_ratio,
             portfolio_done: false,
+            invest_once : false,
+            total_invest_count : 0,
         };
     },
     methods: {
@@ -384,6 +525,7 @@ export default {
             this.ratio[this.tmp] = "";
             this.stockNum.pop();
         },
+
         validation: function() {
             //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
             var a = 0;
@@ -396,13 +538,6 @@ export default {
             } else {
                 this.portfolio_done = true;
                 console.log(this.stockCode);
-                //this.portfolio_init();
-                // this.$store.dispatch("calculatePortfolio", {
-                //     date: this.date,
-                //     stockCode: this.stockCode,
-                //     ratio: this.ratio
-                // });
-                //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
             }
         },
         portfolio_init: function(month) {
@@ -447,6 +582,8 @@ export default {
                     stockCode : this.stockCode,
                     ratio : this.ratio, 
             });
+            this.invest_once = true;
+            this.total_invest_count += 1;
         },
         parse_string_to_date : function(str)
         {

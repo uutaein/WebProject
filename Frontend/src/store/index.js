@@ -28,7 +28,12 @@ export default new Vuex.Store({
         SS_chart_data1 : [],
         SS_chart_data2 : [],
         SS_chart_done : false,
-        SS_profit : 0
+
+        //총 투자 수익률
+        SS_whole_profit : 0,
+
+        //연환산 수익률
+        SS_annual_profit : 0
     },
     // 전체돈 * ration / 주식개별  
     // 전체돈 * 코스닥 가격  
@@ -59,24 +64,29 @@ export default new Vuex.Store({
         {
             //살 종목의 개수 + 1(코스피)
             var payloadSize = payload.data.length-1;
-            //날짜의 개수
+            //투자 일수
             var payloadNumSize = payload.data[payloadSize].length -1;
-
-
+            alert(payloadNumSize);
+            //연환산 투자 기간
+            var investDuration = payloadNumSize/365;
+            investDuration = investDuration.toFixed(2);
+            
             //첫날 코스피 산 개수
             state.SS_init_index_stock_num = state.SS_init_money / payload.data[payloadSize][0].close;
-            console.log(state.SS_init_index_stock_num);
+            
+            
 
             for(var i=0; i<=payloadNumSize; i++)
             {
                 var tdate = payload.data[payloadSize][i].date
+                
                 state.SS_chart_labels.push(tdate);
 
                 var tvalue = state.SS_init_index_stock_num * payload.data[payloadSize][i].close;
                 state.SS_chart_data1.push(tvalue);
             }
             //날짜, 코스피 지수 차트저장 완료
-            console.log(state.SS_chart_data1);
+            //console.log(state.SS_chart_data1);
 
             for(var i=0; i<=payloadNumSize; i++)
             {
@@ -89,7 +99,7 @@ export default new Vuex.Store({
                 var tinit_stocks = state.SS_init_money*state.SS_ratio[i] / payload.data[i][payloadNumSize].close/100;
                 state.SS_init_stocks.push(tinit_stocks);
             }
-            console.log(state.SS_init_stocks);
+            //console.log(state.SS_init_stocks);
 
             // 포트폴리오 변동 계산.
             for(var i=0; i<=payloadNumSize; i++)
@@ -100,9 +110,17 @@ export default new Vuex.Store({
                 }
             }
             state.SS_chart_data2.reverse();
-            state.SS_profit = (state.SS_chart_data2[payloadNumSize] - state.SS_init_money ) / state.SS_init_money * 100;
+            state.SS_whole_profit = (state.SS_chart_data2[payloadNumSize] - state.SS_init_money ) / state.SS_init_money * 100;
+            state.SS_whole_profit = state.SS_whole_profit.toFixed(3)
+
+            //연환산 수익률
+            //(1+기간수익률)^(1/연환산투자기간)-1
+            state.SS_annual_profit = Math.pow((1+state.SS_whole_profit/100),(1/investDuration)) -1;
+            state.SS_annual_profit = (state.SS_annual_profit*100).toFixed(3);
+            //alert(state.SS_annual_profit);
+
             state.SS_chart_done = true;
-            console.log(state.SS_chart_data2);
+            //console.log(state.SS_chart_data2);
         },
         calculatePortfolioFail(state, payload)
         {

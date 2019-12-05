@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <!--<div>
         <div class="mb-3 card">
             <div class="card-header-tab card-header">
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -621,8 +621,8 @@
                     <div class="card-body">
                         <table aria-busy="false" aria-colcount="3"
                                class="table b-table table-striped table-hover table-bordered border mb-0">
-                            <!----><!---->
-                            <thead role="rowgroup" class=""><!---->
+
+                            <thead role="rowgroup" class="">
                             <tr role="row">
                                 <th role="columnheader" scope="col" aria-colindex="1" class="">First Name</th>
                                 <th role="columnheader" scope="col" aria-colindex="2" class="">Last Name</th>
@@ -636,7 +636,7 @@
                                 <th role="columnheader" scope="col" aria-colindex="3" class="">Age</th>
                             </tr>
                             </tfoot>
-                            <tbody role="rowgroup" class=""><!---->
+                            <tbody role="rowgroup" class="">
                             <tr role="row" class="">
                                 <td role="cell" aria-colindex="1" class="">Dickerson</td>
                                 <td role="cell" aria-colindex="2" class="">Macdonald</td>
@@ -680,7 +680,7 @@
                                 <td role="cell" aria-colindex="1" class="">Geneva</td>
                                 <td role="cell" aria-colindex="2" class="">Wilson</td>
                                 <td role="cell" aria-colindex="3" class="">89</td>
-                            </tr><!----><!----></tbody>
+                            </tr></tbody>
                         </table>
                     </div>
                 </div>
@@ -794,7 +794,7 @@
             </div>
         </div>
 
-    </div>
+    </div>-->
 
 </template>
 

@@ -795,72 +795,100 @@
         </div>
 
     </div>-->
-
+    <div id="Dashboards">
+        <p class="title">Welcome to My Asset</p>
+        <button class="circles" id="Btn0" @click="movetoStrategySimulator" @mouseover="mouseoverDescription(0)" @mouseleave="mouseleaveDescription(0)">Strategy Simulator</button>
+        <button class="circles" id="Btn1" @click="movetoStatStrategy" @mouseover="mouseoverDescription(1)" @mouseleave="mouseleaveDescription(1)">Stat Strategy Simulator</button>
+        <button class="circles" id="Btn2" @click="movetoInvestGame" @mouseover="mouseoverDescription(2)" @mouseleave="mouseleaveDescription(2)">Investment Game</button>
+    </div>
 </template>
 
 <script>
+        import router from 'vue-router'
 
-    //import PageTitle from "../../Layout/Components/PageTitle.vue";
-    import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-
-    import chart1 from './Analytics/chart1';
-    import chart2 from './Analytics/chart2';
-    import chart3 from './Analytics/chart3';
-
-    import {library} from '@fortawesome/fontawesome-svg-core'
-    import {
-        faTrashAlt,
-        faCheck,
-        faCalendarAlt,
-        faAngleDown,
-        faAngleUp,
-        faTh,
-    } from '@fortawesome/free-solid-svg-icons'
-    import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-
-    library.add(
-        faTrashAlt,
-        faCheck,
-        faAngleDown,
-        faAngleUp,
-        faTh,
-        faCalendarAlt,
-    );
-
-    export default {
-        components: {
-            //PageTitle,
-            VuePerfectScrollbar,
-            'font-awesome-icon': FontAwesomeIcon,
-            chart1,
-            chart2,
-            chart3,
-
-        },
-        data: () => ({
-            heading: 'Analytics Dashboard',
-            subheading: 'This is an example dashboard created using build-in elements and components.',
-            icon: 'pe-7s-plane icon-gradient bg-tempting-azure',
-            money : 10000,
-        }),
-
-        methods: {
-            create() {
-                // this.$axios.get('test')
-                //     .then(r =>  (this.money = r.data[0].high));
-            },
-            read() {
+        export default {
+            name:'Dashboards',
+            components: {
+                //PageTitle,
+                //VuePerfectScrollbar,
+                'font-awesome-icon': FontAwesomeIcon,
 
             },
-            update() {
-
+            data: () => ({
+            }),
+            mounted(){
+                return function mouseoverdescription(i) {
+                    var description=[]
+                    description.push("포트폴리오 성과 추출기")
+                    description.push("주식스탯으로 세워보는 나만의 전략")
+                    description.push("모의 주식투자")
+                    console.log(description[0])
+                    document.getElementById('Btn'+i).innerText=description[i];
+                }
             },
-            del() {
+            methods: {
+                movetoStrategySimulator: function () {
+                    router.push('/pages/Strategy-Simulator');
+                },
+                movetoStatStrategy: function () {
+                    router.push('/pages/Stat-Strategy');
+                },
+                movetoInvestGame: function () {
+                    router.push('/pages/Investment-Game');
 
+                },
+                mouseoverDescription: function (i) {
+                    var description=[]
+                    description.push("포트폴리오 성과 추출기")
+                    description.push("주식스탯으로 세워보는 나만의 전략")
+                    description.push("모의 주식투자")
+                    console.log(description[0])
+                    document.getElementById('Btn'+i).innerText=description[i];
+                },
+                mouseleaveDescription: function (i) {
+                    var description=[]
+                    description.push("Strategy Simulator")
+                    description.push("Stat Strategy")
+                    description.push("Invest Game")
+                    document.getElementById('Btn'+i).innerText=description[i];
+                }
             },
-        },
 
-    }
+        }
 
 
 </script>
+
+<style>
+.circles{
+    width: 300px;
+    height: 300px;
+    margin: 100px;
+    text-align: center;
+    border-radius: 50%;
+    padding-top: auto;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Apple;
+}
+.title{
+    text-align: center;
+    font-size: 36px;
+    font-family: Apple;
+    color: #69aa8a;
+    font-weight: bold;
+}
+#Btn0{
+    background-color: #e3716c;
+    color: white;
+}
+#Btn1{
+    background-color: #4709ac;
+    color: white;
+}
+
+#Btn2{
+    background-color: #3ac18c;
+    color: white;
+}
+</style>

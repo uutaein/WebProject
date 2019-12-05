@@ -808,12 +808,6 @@
 
         export default {
             name:'Dashboards',
-            components: {
-                //PageTitle,
-                //VuePerfectScrollbar,
-                'font-awesome-icon': FontAwesomeIcon,
-
-            },
             data: () => ({
             }),
             mounted(){

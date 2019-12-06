@@ -76,8 +76,32 @@ app.post('/',function(req,res,next){
         res.send(result);
     })
 })
-app.post('/strategy',function(req,res,next){
+app.post('/stat',function(req,res,next){
+    var Min_size = req.body.minstat[0]
+    var Min_volume = req.body.minstat[1]
+    var Min_momentum= req.body.minstat[2]
+    var Min_low_val= req.body.minstat[3]
+    var Min_growth= req.body.minstat[4]
+    var Min_profit= req.body.minstat[5]
+    var Max_size = req.body.maxstat[0]
+    var Max_volume = req.body.maxstat[1]
+    var Max_momentum= req.body.maxstat[2]
+    var Max_low_val= req.body.maxstat[3]
+    var Max_growth= req.body.maxstat[4]
+    var Max_profit= req.body.maxstat[5]
+
     
+    const Range_size = `size_rank>=${Min_size} and size_rank<=${Max_size}`
+    const Range_volume = `volume_rank>=${Min_volume} and volume_rank<=${Max_volume}`
+    const Range_momentum = `momentum_3m_profitage_rank>=${Min_momentum} and momentum_3m_profitage_rank<=${Max_momentum}`
+    const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`
+    const Range_growth = `growth_rank>=${Min_growth} and growth_rank<=${Max_growth}`
+    const Range_profit = `profitage_rank>=${Min_profit} and profitage_rank<=${Max_profit}` 
+    console.log(Range_size,Range_volume,Range_momentum,Range_low_val,Range_growth,Range_profit)
+    // connection.query(`select * from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit}`,function(err,res){
+    //     res.send(result);
+    // })
+    res.send("돌아가는값")
 })
 // app.get('/',function(req,res,next){
 //     console.log("req.body = " + req.body)

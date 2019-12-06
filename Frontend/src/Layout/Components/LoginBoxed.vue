@@ -42,8 +42,8 @@
                             </div>
                             <div class="modal-footer clearfix">
                                 <div class="float-right">
-                                    <b-button variant="primary" size="lg" @click="signInEmail">Login By Email</b-button>
-                                    <b-button variant="info" size="lg" @click="signInGoogle">Login By Google</b-button>
+                                    <b-button variant="outline-primary" size="lg" @click="signInEmail">Login By Email</b-button>
+                                    <b-button variant="outline-info" size="lg" @click="signInGoogle">Login By Google</b-button>
                                 </div>
                             </div>
                         </div>
@@ -82,11 +82,11 @@
                 var provider =new firebase.auth.GoogleAuthProvider();
                 firebase.auth().languageCode='ko'
 
-                firebase.auth().signInWithPopup(provider).then(function (result) {
+                firebase.auth().signInWithPopup(provider).then((result)=> {
                     var token=result.credential.accessToken;
 
                     var user=result.user;
-                    if(result) location.replace('/Dashboards');
+                    this.$router.push('/Dashboards');
                 }).catch(function (error) {
                     var errorCode=error.code;
                     var errorMessage=error.message;

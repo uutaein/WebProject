@@ -13,8 +13,7 @@ var connection = mysql.createConnection({
     password : 'adminroot',
     port     :3306,
     database : 'stockdb'
-})
-connection.connect();
+});
 
 app.get('/:idx', function (req, res, next) {
     //날짜 req.params.idx로불러 오면됨
@@ -22,6 +21,7 @@ app.get('/:idx', function (req, res, next) {
         res.send(result);
     })
 });
+
 
 app.post('/api', function (req, res, next) {
     var date= req.body.date;//입력받은 날짜

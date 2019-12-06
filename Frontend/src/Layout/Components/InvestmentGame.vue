@@ -628,7 +628,7 @@ export default {
             if (this.init_money != 0 && this.start_date != "") {
                 this.init_money *= 10000;
                 this.$store.state.IG_init_money = this.init_money;
-                this.$store.state.IG_init_date = this.date;
+                this.$store.state.IG_init_date = this.start_date;
                 this.init_state_done = true;
             } else {
                 alert("입력을 확인해주세요");
@@ -642,7 +642,7 @@ export default {
                 this.stockNum.push(null);
                 if (this.stockList.length == 0) {
                     console.log(this.start_date);
-                    this.$http.get("/test/" + this.date).then(response => {
+                    this.$axios.get("test/" + this.start_date).then(response => {
                         this.stockList = response.data;
                     });
                 }

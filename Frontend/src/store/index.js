@@ -234,7 +234,7 @@ export default new Vuex.Store({
         },
         IGcalculatePortfolio({commit},payload)
         {
-            axios.post('/test/apitest',payload)
+            axios.post('test/apitest',payload)
                 .then((res) => {
                     commit('IGcalculatePortfolioSuccess',res);
                 })

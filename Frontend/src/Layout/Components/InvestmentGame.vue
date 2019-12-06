@@ -75,19 +75,7 @@
                             <div v-for="(idx, i) in stockNum" class="row">
                                 {{ passer(i) }}
                                 <div class="position-relative form-group">
-                                    <select
-                                        id="stockCode"
-                                        v-model="stockCode[i]"
-                                        class="custom-select"
-                                    >
-                                        <option
-                                            v-for="idx in stockList"
-                                            v-bind:value="idx.code"
-                                            >종목코드:{{ idx.code }} 종목명:{{
-                                                idx.name
-                                            }}
-                                        </option>
-                                    </select>
+                                    <treeselect v-model="stockCode[i]" :multiple="false" :options="options" />
                                 </div>
                                 <div class="position-relative form-group">
                                     <input
@@ -595,13 +583,17 @@
 import IGchart from './Analytics/IG_chart1.vue';
 import IGchart2 from './Analytics/IG_chart2.vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-
+// import the component
+import Treeselect from '@riophae/vue-treeselect'
+// import the styles
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
     
      components: {
             VuePerfectScrollbar,
             IGchart,
             IGchart2,
+            Treeselect
     },
     name: "InvestmentGame",
     data() {
@@ -621,6 +613,7 @@ export default {
             total_invest_count : 0,
             step_check_toggle : false,
             portfolio_arrange : 0,
+            options :[],
         };
     },
     methods: {
@@ -644,6 +637,11 @@ export default {
                     console.log(this.start_date);
                     this.$axios.get("test/" + this.start_date).then(response => {
                         this.stockList = response.data;
+                        //options 에 stockList 내용 넣기
+                        for(var i=0;i<this.stockList.length;i++){
+                             this.options.push({label:'종목코드 : ' + this.stockList[i].code + ' 종목명 : '+ this.stockList[i].name,
+                                        id:this.stockList[i].code})
+                        }
                     });
                 }
             }

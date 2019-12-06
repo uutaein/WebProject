@@ -808,12 +808,6 @@
 
         export default {
             name:'Dashboards',
-            components: {
-                //PageTitle,
-                //VuePerfectScrollbar,
-                'font-awesome-icon': FontAwesomeIcon,
-
-            },
             data: () => ({
             }),
             mounted(){
@@ -828,13 +822,13 @@
             },
             methods: {
                 movetoStrategySimulator: function () {
-                    router.push('/pages/Strategy-Simulator');
+                    location.replace('/pages/Strategy-Simulator');
                 },
                 movetoStatStrategy: function () {
-                    router.push('/pages/Stat-Strategy');
+                    location.replace('/pages/Stat-Strategy');
                 },
                 movetoInvestGame: function () {
-                    router.push('/pages/Investment-Game');
+                    location.replace('/pages/Investment-Game');
 
                 },
                 mouseoverDescription: function (i) {

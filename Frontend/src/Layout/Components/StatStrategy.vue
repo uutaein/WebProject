@@ -210,7 +210,7 @@
                 document.getElementById('graphzone').style.display="none"
             },
             showRecommend: function () {
-                location.replace('/pages/Recommend');
+                this.$router.push('/pages/Recommend');
             }
         }
     }

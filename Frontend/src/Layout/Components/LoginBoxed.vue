@@ -67,12 +67,12 @@
         },
         methods:{
             signUp(){
-                location.replace('/Register')
+                this.$router.push('/Register')
             },
             signInEmail(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                     .then((user)=>{
-                        location.replace('/Dashboards')
+                        this.$router.push('/Dashboards')
                     })
                     .catch((error)=>{
                         alert(error);

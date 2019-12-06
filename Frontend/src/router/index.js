@@ -16,6 +16,13 @@ export default new Router({
             path: '/Dashboards',
             name: 'analytics',
             component: () => import('../Layout/Components/Dashboards/Analytics.vue'),
+            beforeEnter:(to,from,next)=>{
+                if(firebase.auth().currentUser) next()
+                else {
+                    alert('잘못된 접근입니다!')
+                    next('/')
+                }
+            }
         },      
             
 

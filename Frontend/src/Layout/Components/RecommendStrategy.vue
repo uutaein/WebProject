@@ -275,7 +275,7 @@
         },
         methods:{
             moveBack: function () {
-                location.replace('/pages/Stat-Strategy')
+                this.$router.push('/pages/Stat-Strategy')
             }
         }
     }

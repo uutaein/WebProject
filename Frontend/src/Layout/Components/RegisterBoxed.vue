@@ -105,7 +105,7 @@
                         this.password=''
                         this.passwordconfirm=''
                         this.username=''
-                        location.replace('/');
+                        this.$router.push('/');
                     })
                     .catch((error)=>{
                         alert(error);

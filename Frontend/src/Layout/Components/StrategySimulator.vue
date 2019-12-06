@@ -71,39 +71,7 @@
                             </div>
                         </div>
 
-                        <h6 class="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal">
-                            Sales Progress</h6>
-                        <ul class="list-group list-group-flush">
-                            <li class="p-3 bg-transparent list-group-item">
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Total Orders</div>
-                                                <div class="widget-subheading">Last year expenses</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-success">
-                                                    <small>$</small>
-                                                    1896
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="widget-progress-wrapper">
-                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-primary" role="progressbar"
-                                                     aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: 43%;"></div>
-                                            </div>
-                                            <div class="progress-sub-label">
-                                                <div class="sub-label-left">YoY Growth</div>
-                                                <div class="sub-label-right">100%</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -125,7 +93,7 @@
             return{
                 stockNum:[],
                 date:'',
-                budget:'',
+                budget: 0,
                 stockCode: [],
                 stockList: [],
                 ratio: this.$store.state.SS_ratio,
@@ -145,7 +113,7 @@
                     this.stockNum.push(null);
                     if(this.stockList.length==0) {
                         console.log(this.date)
-                        this.$http.get('/test/'+this.date).then(response=>{
+                        this.$axios.get('test/SS/'+this.date).then(response=>{
                             this.stockList=response.data;
                         })
                     }
@@ -172,7 +140,7 @@
                 }
                 else{
                     this.valid=true;
-                    
+                    this.$store.state.SS_init_money = this.budget;
                     this.$store.dispatch('calculatePortfolio',{date:this.date,stockCode:this.stockCode,ratio:this.ratio});
                     //validation하고 맞으면 입력받은 date랑 stockCode를 back으로 보내
 

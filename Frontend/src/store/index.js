@@ -30,7 +30,7 @@ export default new Vuex.Store({
         IG_total_net_money : 0,
         IG_total_net_profit : 0,
 
-        SS_init_money : 1000000,
+        SS_init_money : 0,
         SS_init_stocks : [],
         SS_init_index_stock_num : 0,
         SS_ratio : [],
@@ -71,18 +71,19 @@ export default new Vuex.Store({
 
         calculatePortfolioSuccess(state, payload)
         {
+            this.state.SS_init_money *= 10000;
             //살 종목의 개수 + 1(코스피)
             var payloadSize = payload.data.length-1;
+            
             //투자 일수
             var payloadNumSize = payload.data[payloadSize].length -1;
-            alert(payloadNumSize);
+          
             //연환산 투자 기간
             var investDuration = payloadNumSize/365;
             investDuration = investDuration.toFixed(2);
-            
+
             //첫날 코스피 산 개수
-            state.SS_init_index_stock_num = state.SS_init_money / payload.data[payloadSize][0].close;
-            
+            state.SS_init_index_stock_num = this.state.SS_init_money / payload.data[payloadSize][0].close;
             
 
             for(var i=0; i<=payloadNumSize; i++)
@@ -95,7 +96,7 @@ export default new Vuex.Store({
                 state.SS_chart_data1.push(tvalue);
             }
             //날짜, 코스피 지수 차트저장 완료
-            //console.log(state.SS_chart_data1);
+            console.log(state.SS_chart_data1);
 
             for(var i=0; i<=payloadNumSize; i++)
             {
@@ -108,7 +109,7 @@ export default new Vuex.Store({
                 var tinit_stocks = state.SS_init_money*state.SS_ratio[i] / payload.data[i][payloadNumSize].close/100;
                 state.SS_init_stocks.push(tinit_stocks);
             }
-            //console.log(state.SS_init_stocks);
+            console.log(state.SS_init_stocks);
 
             // 포트폴리오 변동 계산.
             for(var i=0; i<=payloadNumSize; i++)
@@ -231,7 +232,7 @@ export default new Vuex.Store({
         },
         calculatePortfolio({commit},payload)
         {
-            axios.post('/test/apitest',payload)
+            axios.post('test/api',payload)
                 .then((res) => {
                     commit('calculatePortfolioSuccess',res);
                 })

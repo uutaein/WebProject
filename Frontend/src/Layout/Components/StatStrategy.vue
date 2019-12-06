@@ -65,7 +65,7 @@
                 <span id="scope5">{{MinStat[5]}} ~ {{MaxStat[5]}}</span>
             </span>
         </div>
-        <b-button variant="primary" id="findStockBtn">종목 찾기</b-button>
+        <b-button variant="primary" id="findStockBtn" @click="findCompany">종목 찾기</b-button>
         <b-button variant="focus" id="recommendBtn" @click="showRecommend">추천 전략 보기</b-button>
         <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
     </div>
@@ -211,6 +211,11 @@
             },
             showRecommend: function () {
                 this.$router.push('/pages/Recommend');
+            },
+            findCompany: function(){
+                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat},function(err,res){
+                    console.log(res.data);
+                })
             }
         }
     }

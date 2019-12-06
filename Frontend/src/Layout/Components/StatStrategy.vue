@@ -108,7 +108,7 @@
                 chartOn:false,
                 tableOn:false,
                 filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
-                    {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63}]
+                    {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},]
             }
         },
         methods:{
@@ -239,9 +239,18 @@
             },
             findCompany: function(){
                 this.tableOn=true;
+                this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat},function(err,res){
                     console.log(res.data);
                 })
+            },
+            clearTable: function () {
+                var tb=document.getElementById('resultTable');
+                if(tb!=null){
+                    while(tb.childElementCount>1){
+                        tb.removeChild(tb.lastChild);
+                    }
+                }
             }
         }
     }

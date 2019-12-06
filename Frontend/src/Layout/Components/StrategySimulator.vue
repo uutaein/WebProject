@@ -106,7 +106,7 @@
                         </ul>
                     </div>
                 </div>
-             <b-button variant="outline-focus" @click="saveDataInFB">포트폴리오 저장</b-button>
+             <b-button variant="outline-focus" @click="saveDataInFB">포트폴리오 이미지로 저장</b-button>
          </div>
             
     </div>

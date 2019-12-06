@@ -1,73 +1,95 @@
 <template>
     <div id="StatStrategy">
-        <h1>
-            주식스탯전략 시뮬레이터<br>
-        </h1>
-        <p>주식스탯으로 세워보는 나만의 전략</p><hr>
-        <div id="graphzone" style="display: none">
-            <canvas id="Radar" width="300" height="300"></canvas>
+        <div id="selectZone">
+            <h1>
+                주식스탯전략 시뮬레이터<br>
+            </h1>
+            <p>주식스탯으로 세워보는 나만의 전략(2018.12 기준)</p><hr>
+            <div id="graphzone" style="display: none">
+                <canvas id="Radar" width="450" height="300"></canvas>
+            </div>
+            <b-button variant="outline-info" class="graphBtn" v-if="!chartOn" @click="showRadar">그래프 보기</b-button>
+            <b-button variant="outline-info" class="graphBtn" v-if="chartOn" @click="hideRadar">그래프 숨기기</b-button>
+            <div>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(0,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(0,1)"></b-button>
+                    <span class="statName">사이즈</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(0)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(0,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(0,1)"></b-button>
+                    <span id="scope0">{{MinStat[0]}} ~ {{MaxStat[0]}}</span>
+                </span><br><br>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(1,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(1,1)"></b-button>
+                    <span class="statName">거래량</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(1)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(1,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(1,1)"></b-button>
+                    <span id="scope1">{{MinStat[1]}} ~ {{MaxStat[1]}}</span>
+                </span><br><br>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(2,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(2,1)"></b-button>
+                    <span class="statName">모멘텀</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(2)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(2,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(2,1)"></b-button>
+                    <span id="scope2">{{MinStat[2]}} ~ {{MaxStat[2]}}</span>
+                </span><br><br>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(3,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(3,1)"></b-button>
+                    <span class="statName">저평가</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(3)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(3,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(3,1)"></b-button>
+                    <span id="scope3">{{MinStat[3]}} ~ {{MaxStat[3]}}</span>
+                </span><br><br>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(4,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(4,1)"></b-button>
+                    <span class="statName">성장성</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(4)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(4,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(4,1)"></b-button>
+                    <span id="scope4">{{MinStat[4]}} ~ {{MaxStat[4]}}</span>
+                </span><br><br>
+                <span class="statBtnContainer">
+                    <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(5,0)"></b-button>
+                    <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(5,1)"></b-button>
+                    <span class="statName">수익성</span>
+                    <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(5)">?</b-button>
+                    <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(5,0)"></b-button>
+                    <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(5,1)"></b-button>
+                    <span id="scope5">{{MinStat[5]}} ~ {{MaxStat[5]}}</span>
+                </span>
+            </div>
+            <b-button variant="primary" id="findStockBtn" @click="findCompany">종목 찾기</b-button>
+            <b-button variant="focus" id="recommendBtn" @click="showRecommend">추천 전략 보기</b-button>
+            <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
         </div>
-        <b-button variant="outline-info" class="graphBtn" v-if="!chartOn" @click="showRadar">그래프 보기</b-button>
-        <b-button variant="outline-info" class="graphBtn" v-if="chartOn" @click="hideRadar">그래프 숨기기</b-button>
-        <div>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(0,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(0,1)"></b-button>
-                <span class="statName">사이즈</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(0)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(0,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(0,1)"></b-button>
-                <span id="scope0">{{MinStat[0]}} ~ {{MaxStat[0]}}</span>
-            </span><br><br>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(1,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(1,1)"></b-button>
-                <span class="statName">거래량</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(1)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(1,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(1,1)"></b-button>
-                <span id="scope1">{{MinStat[1]}} ~ {{MaxStat[1]}}</span>
-            </span><br><br>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(2,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(2,1)"></b-button>
-                <span class="statName">모멘텀</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(2)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(2,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(2,1)"></b-button>
-                <span id="scope2">{{MinStat[2]}} ~ {{MaxStat[2]}}</span>
-            </span><br><br>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(3,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(3,1)"></b-button>
-                <span class="statName">저평가</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(3)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(3,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(3,1)"></b-button>
-                <span id="scope3">{{MinStat[3]}} ~ {{MaxStat[3]}}</span>
-            </span><br><br>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(4,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(4,1)"></b-button>
-                <span class="statName">성장성</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(4)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(4,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(4,1)"></b-button>
-                <span id="scope4">{{MinStat[4]}} ~ {{MaxStat[4]}}</span>
-            </span><br><br>
-            <span class="statBtnContainer">
-                <b-button variant="info" class="pe-7s-angle-left-circle" @click="MinStatAdjust(5,0)"></b-button>
-                <b-button variant="info" class="pe-7s-angle-right-circle" @click="MinStatAdjust(5,1)"></b-button>
-                <span class="statName">수익성</span>
-                <b-button class="helpBtn" variant="outline-dark" size="sm" @click="popupInfo(5)">?</b-button>
-                <b-button variant="danger" class="pe-7s-angle-left-circle" @click="MaxStatAdjust(5,0)"></b-button>
-                <b-button variant="danger" class="pe-7s-angle-right-circle" @click="MaxStatAdjust(5,1)"></b-button>
-                <span id="scope5">{{MinStat[5]}} ~ {{MaxStat[5]}}</span>
-            </span>
+        <div id="tableZone" v-if="tableOn">
+            <table id="resultTable" border="1" bordercolor="#3ac18a">
+                <tr bgcolor="#3AC18A" style="color: white">
+                    <td>종목명</td>
+                    <td>시가총액</td>
+                    <td>변동성</td>
+                    <td>PER(배)</td>
+                    <td>영업이익(%)</td>
+                    <td>ROE(%)</td>
+                </tr>
+                <tr v-for="idx in filteredStockData">
+                    <td>{{idx.name}}</td>
+                    <td>{{idx.total}}</td>
+                    <td>{{idx.variability}}</td>
+                    <td>{{idx.PER}}</td>
+                    <td>{{idx.profit}}</td>
+                    <td>{{idx.ROE}}</td>
+                </tr>
+            </table>
         </div>
-        <b-button variant="primary" id="findStockBtn" @click="findCompany">종목 찾기</b-button>
-        <b-button variant="focus" id="recommendBtn" @click="showRecommend">추천 전략 보기</b-button>
-        <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
     </div>
 </template>
 
@@ -83,7 +105,10 @@
                 StatInfo:[],
                 date:'',
                 chart:'',
-                chartOn:false
+                chartOn:false,
+                tableOn:false,
+                filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
+                    {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63}]
             }
         },
         methods:{
@@ -213,6 +238,7 @@
                 this.$router.push('/pages/Recommend');
             },
             findCompany: function(){
+                this.tableOn=true;
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat},function(err,res){
                     console.log(res.data);
                 })
@@ -222,30 +248,42 @@
 </script>
 
 <style scoped>
+#selectZone{
+    width: 50%;
+    float: left;
+}
+#tableZone{
+    width: 45%;
+    float: right;
+}
+#resultTable{
+    width: 85%;
+    text-align: center;
+}
 #graphzone{
     height: 350px;
 }
 .graphBtn{
-    width: 12%;
+    width: 24%;
 }
 #findStockBtn{
-    width: 15%;
+    width: 24%;
 }
 #rankManualBtn{
-    width:12%;
+    width:24%;
 }
 #recommendBtn{
-    width: 15%;
+    width: 24%;
 }
 .helpBtn{
-    width: 2%;
+    width: 5%;
 }
 .statName{
     width: 5%;
     margin: 5px;
 }
 button{
-    width: 8%;
+    width: 14%;
 }
 
 

@@ -74,7 +74,8 @@
                         
                     </div>
                 </div>
-            </div>
+             <b-button variant="outline-focus" @click="saveDataInFB">포트폴리오 이미지로 저장</b-button>
+         </div>
             
     </div>
 </template>
@@ -82,6 +83,7 @@
 <script>
     import SSchart from './Analytics/SS_chart1';
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+    import firebase from 'firebase'
 
     export default {
         components: {
@@ -152,6 +154,9 @@
                 this.stockCode.splice(0,this.stockCode.length);
                 this.ratio.splice(0,this.ratio.length);
                 this.valid=false;
+            },
+            saveDataInFB: function () {
+
             }
         }
     }

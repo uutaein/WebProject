@@ -55,6 +55,11 @@ export default new Router({
             component:()=>import('../Layout/Components/StatStrategy.vue'),
         },
         {
+            path: '/pages/Recommend',
+            name : 'Stat Recommend',
+            component:()=>import('../Layout/Components/StatStrategy_sample.vue'),
+        },
+        {
             path: '/pages/InvestmentGame',
             name : 'InvestmentGame',
             component:()=>import('../Layout/Components/InvestmentGame.vue'),

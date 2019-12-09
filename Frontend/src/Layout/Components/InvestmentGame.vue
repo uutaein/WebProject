@@ -669,13 +669,13 @@ export default {
                 this.$store.state.IG_init_money = this.init_money;
                 this.$store.state.IG_init_date = this.start_date;
                 this.init_state_done = true;
-                console.log("처음 배열의 길이는 " + this.stockList)
+                //console.log("처음 배열의 길이는 " + this.stockList)
                  if (this.stockList.length == 0) {
                     console.log(this.start_date);
                     this.$axios.get("test/" + this.start_date).then(response => {
                         this.stockList = response.data;
                         //options 에 stockList 내용 넣기
-                        console.log("나중 배열의 길이는 " + this.stockList.length)
+                        //console.log("나중 배열의 길이는 " + this.stockList.length)
                         for(var i=0;i<this.stockList.length;i++){
                              this.options.push({text: this.stockList[i].name,
                                         value:this.stockList[i].code})
@@ -709,11 +709,13 @@ export default {
         cleanportfolo: function() {
             this.stockCode = [];
             this.stockNum = [];
+            this.$store.state.IG_ratio = [];
             this.ratio = [];
             this.portfolio_done = false;
             this.portfolio_arrange += 1;
             this.portfolio_done = false;
             this.invest_once = false;
+            //console.log("비율 초기화 : " + this.ratio);
         },
         validation: function() {
             //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
@@ -726,7 +728,7 @@ export default {
                 return false;
             } else {
                 this.portfolio_done = true;
-                console.log(this.stockCode);
+                //console.log(this.stockCode);
             }
         },
         portfolio_init: function(month) {
@@ -775,6 +777,7 @@ export default {
             this.total_date_between = (p_end_date - p_start_date) / 1000 / 60 / 60 / 24;
             this.progress_percent = Math.floor((this.t_date_between / this.total_date_between) * 100);
             //프로그레스바 추가 코드 끝
+            
             this.$store.dispatch("IGcalculatePortfolio", {
                 start_date: this.tstart_date,
                 end_date: this.tend_date,

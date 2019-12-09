@@ -240,8 +240,8 @@
             findCompany: function(){
                 this.tableOn=true;
                 this.clearTable();
-                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat},function(err,res){
-                    console.log(res.data);
+                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
+                    console.log(response.data)
                 })
             },
             clearTable: function () {

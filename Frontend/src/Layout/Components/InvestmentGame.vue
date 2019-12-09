@@ -75,17 +75,10 @@
                             <div v-for="(idx, i) in stockNum" class="row">
                                 {{ passer(i) }}
                                 <div class="position-relative form-group">
-<<<<<<< HEAD
-                                <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요">
+                                    <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요" style="width : 250px;">
                                     </model-select>
-=======
-                                    <treeselect
-                                        v-model="stockCode[i]"
-                                        :multiple="false"
-                                        :options="options"
-                                    />
                                 </div>
-                                <div class="position-relative form-group">
+                                <div class="position-relative form-group" style="width : 100px;">
                                     <input
                                         v-model="ratio[i]"
                                         type="number"
@@ -96,7 +89,6 @@
                                 <div class="position-relative form-group">
                                     <b-button
                                         class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-sm"
->>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
                                         variant="warning"
                                         style="float : right; margin-left : 20px"
                                         @click="deleteStock"
@@ -632,16 +624,14 @@
 import IGchart from "./Analytics/IG_chart1.vue";
 import IGchart2 from "./Analytics/IG_chart2.vue";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
-// import the component
-import Treeselect from "@riophae/vue-treeselect";
-// import the styles
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import { ModelSelect } from 'vue-search-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
 export default {
     components: {
         VuePerfectScrollbar,
         IGchart,
         IGchart2,
-        Treeselect
+        ModelSelect
     },
     name: "InvestmentGame",
     data() {
@@ -654,18 +644,9 @@ export default {
             end_date: "2019-11-26",
             init_money: this.$store.state.IG_init_money,
             init_state_done: false,
-import { ModelSelect } from 'vue-search-select'
-import 'vue-search-select/dist/VueSearchSelect.css'
+            stockList:[],
             ratio: this.$store.state.IG_ratio,
             portfolio_done: false,
-<<<<<<< HEAD
-            invest_once : false,
-            total_invest_count : 0,
-            step_check_toggle : false,
-            ModelSelect
-            portfolio_arrange : 0,
-            options :[],
-=======
             invest_once: false,
             total_invest_count: 0,
             step_check_toggle: false,
@@ -679,7 +660,6 @@ import 'vue-search-select/dist/VueSearchSelect.css'
             progress_percent: 0,
             percent_max: 100,
             timer : null,
->>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
         };
     },
     methods: {
@@ -689,44 +669,13 @@ import 'vue-search-select/dist/VueSearchSelect.css'
                 this.$store.state.IG_init_money = this.init_money;
                 this.$store.state.IG_init_date = this.start_date;
                 this.init_state_done = true;
-                if (this.stockList.length == 0) {
-                
-                    this.$axios
-                        .get("test/" + this.start_date)
-                        .then(response => {
-                            this.stockList = response.data;
-                            //options 에 stockList 내용 넣기
-                        
-                            for (var i = 0; i < this.stockList.length; i++) {
-                                this.options.push({
-                                    label: this.stockList[i].name,
-                                    id: this.stockList[i].code
-                                });
-                            }
-                        });
-                }
-            } else {
-                alert("입력을 확인해주세요");
-            }
-        },
-        addStock: function() {
-            if (this.init_state_done == false) {
-                alert("값을 입력해주세요");
-            options :[],
-                return;
-            } else {
-                this.stockNum.push(null);
-<<<<<<< HEAD
-                if (this.stockList.length == 0) {
-                    console.log(this.start_date);
-                    this.$axios.get("test/" + this.start_date).then(response => {
-                        this.stockList = response.data;
-                        //options 에 stockList 내용 넣기
+                console.log("처음 배열의 길이는 " + this.stockList)
                  if (this.stockList.length == 0) {
                     console.log(this.start_date);
                     this.$axios.get("test/" + this.start_date).then(response => {
                         this.stockList = response.data;
                         //options 에 stockList 내용 넣기
+                        console.log("나중 배열의 길이는 " + this.stockList.length)
                         for(var i=0;i<this.stockList.length;i++){
                              this.options.push({text: this.stockList[i].name,
                                         value:this.stockList[i].code})
@@ -734,8 +683,18 @@ import 'vue-search-select/dist/VueSearchSelect.css'
                     });
                
                 }
-=======
->>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
+              
+              } else {
+                alert("입력을 확인해주세요");
+            }
+            
+        },
+        addStock: function() {
+            if (this.init_state_done == false) {
+                alert("값을 입력해주세요");
+                return;
+            } else {
+                this.stockNum.push(null);
             }
         },
         passer: function(i) {

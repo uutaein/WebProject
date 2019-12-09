@@ -75,8 +75,28 @@
                             <div v-for="(idx, i) in stockNum" class="row">
                                 {{ passer(i) }}
                                 <div class="position-relative form-group">
+<<<<<<< HEAD
                                 <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요">
                                     </model-select>
+=======
+                                    <treeselect
+                                        v-model="stockCode[i]"
+                                        :multiple="false"
+                                        :options="options"
+                                    />
+                                </div>
+                                <div class="position-relative form-group">
+                                    <input
+                                        v-model="ratio[i]"
+                                        type="number"
+                                        placeholder="비중(%)"
+                                        class="form-control"
+                                    />
+                                </div>
+                                <div class="position-relative form-group">
+                                    <b-button
+                                        class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-sm"
+>>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
                                         variant="warning"
                                         style="float : right; margin-left : 20px"
                                         @click="deleteStock"
@@ -144,8 +164,10 @@
                             <span class="mr-1">1년 투자하기</span>
                         </button>
                     </div>
-                    <div class="text-center d-block mb-3 card-footer" v-if="invest_once">
-                       
+                    <div
+                        class="text-center d-block mb-3 card-footer"
+                        v-if="invest_once"
+                    >
                         <button
                             class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg"
                             @click="cleanportfolo()"
@@ -211,7 +233,7 @@
                                                         <div
                                                             class="widget-title opacity-5 text-muted text-uppercase"
                                                         >
-                                                            Helpdesk Tickets
+                                                            구간 수익률
                                                         </div>
                                                     </div>
                                                     <div class="widget-numbers">
@@ -221,35 +243,29 @@
                                                             <div>
                                                                 <span
                                                                     class="text-warning"
-                                                                    >34</span
+                                                                    >{{this.$store.state.IG_profit}}</span
                                                                 >
                                                             </div>
-                                                            <div
-                                                                class="widget-title ml-2 font-size-lg font-weight-normal text-dark"
-                                                            >
-                                                                <span
-                                                                    class="opacity-5 text-muted pl-2 pr-1"
-                                                                    >5%</span
-                                                                >
-                                                                increase
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     class="widget-chart-wrapper he-auto opacity-10 m-0"
                                                 >
-                                                    <IGchart :height="145" v-if="this.$store.state.IG_chart_done"/>
+                                                    <IGchart
+                                                        :height="145"
+                                                        v-if="
+                                                            this.$store.state
+                                                                .IG_chart_done
+                                                        "
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <h6
-                                        class="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal"
-                                    >
-                                        Sales Progress
-                                    </h6>
+                                    
                                     <ul class="list-group list-group-flush">
                                         <li
                                             class="p-3 bg-transparent list-group-item"
@@ -267,13 +283,12 @@
                                                             <div
                                                                 class="widget-heading"
                                                             >
-                                                                Total Orders
+                                                                구간 수익
                                                             </div>
                                                             <div
                                                                 class="widget-subheading"
                                                             >
-                                                                Last year
-                                                                expenses
+                                                                구간 수익금(단위 :원)
                                                             </div>
                                                         </div>
                                                         <div
@@ -282,38 +297,35 @@
                                                             <div
                                                                 class="widget-numbers text-success"
                                                             >
-                                                                <small>$</small>
-                                                                1896
+                                                                <small>₩</small>
+                                                                {{this.$store.state.IG_net_money}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div
                                                         class="widget-progress-wrapper"
                                                     >
-                                                        <div
-                                                            class="progress-bar-sm progress-bar-animated-alt progress"
-                                                        >
-                                                            <div
-                                                                class="progress-bar bg-primary"
-                                                                role="progressbar"
-                                                                aria-valuenow="43"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                                style="width: 43%;"
-                                                            ></div>
-                                                        </div>
+                                                        <b-progress
+                                                                :value="
+                                                                    progress_percent
+                                                                "
+                                                                :max="
+                                                                    percent_max
+                                                                "
+                                                                animated
+                                                            ></b-progress>
                                                         <div
                                                             class="progress-sub-label"
                                                         >
                                                             <div
                                                                 class="sub-label-left"
                                                             >
-                                                                YoY Growth
+                                                                진행정도
                                                             </div>
                                                             <div
                                                                 class="sub-label-right"
                                                             >
-                                                                100%
+                                                                {{this.progress_percent}}%
                                                             </div>
                                                         </div>
                                                     </div>
@@ -322,7 +334,7 @@
                                         </li>
                                     </ul>
                                 </b-tab>
-                                <b-tab title="전체 수익률" active>
+                                <b-tab title="전체 수익률">
                                     <div class="p-1 slick-slider-sm mx-auto">
                                         <div
                                             class="widget-chart widget-chart2 text-left p-0"
@@ -339,7 +351,7 @@
                                                         <div
                                                             class="widget-title opacity-5 text-muted text-uppercase"
                                                         >
-                                                            Helpdesk Tickets
+                                                            수익률
                                                         </div>
                                                     </div>
                                                     <div class="widget-numbers">
@@ -349,35 +361,29 @@
                                                             <div>
                                                                 <span
                                                                     class="text-warning"
-                                                                    >34</span
+                                                                    >{{this.$store.state.IG_total_net_profit}}</span
                                                                 >
                                                             </div>
-                                                            <div
-                                                                class="widget-title ml-2 font-size-lg font-weight-normal text-dark"
-                                                            >
-                                                                <span
-                                                                    class="opacity-5 text-muted pl-2 pr-1"
-                                                                    >5%</span
-                                                                >
-                                                                increase
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     class="widget-chart-wrapper he-auto opacity-10 m-0"
                                                 >
-                                                    <IGchart2 :height="145" v-if="this.$store.state.IG_chart_total_done"/>
+                                                    <IGchart2
+                                                        :height="145"
+                                                        v-if="
+                                                            this.$store.state
+                                                                .IG_chart_total_done
+                                                        "
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <h6
-                                        class="text-muted text-uppercase font-size-md opacity-5 pl-3 pr-3 pb-1 font-weight-normal"
-                                    >
-                                        Sales Progress
-                                    </h6>
+                                    
                                     <ul class="list-group list-group-flush">
                                         <li
                                             class="p-3 bg-transparent list-group-item"
@@ -395,13 +401,12 @@
                                                             <div
                                                                 class="widget-heading"
                                                             >
-                                                                Total Orders
+                                                                총 수익
                                                             </div>
                                                             <div
                                                                 class="widget-subheading"
                                                             >
-                                                                Last year
-                                                                expenses
+                                                                총 수익금(단위 : 원)
                                                             </div>
                                                         </div>
                                                         <div
@@ -410,38 +415,37 @@
                                                             <div
                                                                 class="widget-numbers text-success"
                                                             >
-                                                                <small>$</small>
-                                                                1896
+                                                                <small>₩</small>
+                                                                {{this.$store.state.IG_total_net_money}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div
                                                         class="widget-progress-wrapper"
                                                     >
-                                                        <div
-                                                            class="progress-bar-sm progress-bar-animated-alt progress"
-                                                        >
-                                                            <div
-                                                                class="progress-bar bg-primary"
-                                                                role="progressbar"
-                                                                aria-valuenow="43"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                                style="width: 43%;"
-                                                            ></div>
-                                                        </div>
+                                                        
+                                                            <b-progress
+                                                                :value="
+                                                                    progress_percent
+                                                                "
+                                                                :max="
+                                                                    percent_max
+                                                                "
+                                                                animated
+                                                            ></b-progress>
+                                                        
                                                         <div
                                                             class="progress-sub-label"
                                                         >
                                                             <div
                                                                 class="sub-label-left"
                                                             >
-                                                                YoY Growth
+                                                                진행정도
                                                             </div>
                                                             <div
                                                                 class="sub-label-right"
                                                             >
-                                                                100%
+                                                                {{this.progress_percent}}%
                                                             </div>
                                                         </div>
                                                     </div>
@@ -467,11 +471,22 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">초기 자본</div>
-                                            <div class="widget-subheading">단위(원)</div>
+                                            <div class="widget-heading">
+                                                초기 자본
+                                            </div>
+                                            <div class="widget-subheading">
+                                                단위(원)
+                                            </div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-success">{{this.$store.state.IG_init_money}}</div>
+                                            <div
+                                                class="widget-numbers text-success"
+                                            >
+                                                {{
+                                                    this.$store.state
+                                                        .IG_init_money
+                                                }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -482,45 +497,19 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">총 수익금</div>
-                                            <div class="widget-subheading">단위(원)</div>
+                                            <div class="widget-heading">
+                                                시작 날짜
+                                            </div>
+                                            <div class="widget-subheading">
+                                                연도-월-일
+                                            </div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-primary">{{this.$store.state.IG_total_net_money}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-12 col-lg-4">
-                    <ul class="list-group list-group-flush">
-                        <li class="bg-transparent list-group-item">
-                            <div class="widget-content p-0">
-                                <div class="widget-content-outer">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">최고 구간 수익률</div>
-                                            <div class="widget-subheading">최고 중투 성적</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-danger">{{this.$store.state.IG_max_profit}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bg-transparent list-group-item">
-                            <div class="widget-content p-0">
-                                <div class="widget-content-outer">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">전체 수익률</div>
-                                            <div class="widget-subheading">깡통만은 제발</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-warning">{{this.$store.state.IG_total_net_profit}}</div>
+                                            <div
+                                                class="widget-numbers text-primary"
+                                            >
+                                                {{this.start_date}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -535,11 +524,22 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">투자 횟수</div>
-                                            <div class="widget-subheading">투자 횟수 합산</div>
+                                            <div class="widget-heading">
+                                                최고 구간 수익률
+                                            </div>
+                                            <div class="widget-subheading">
+                                                최고 중투 성적
+                                            </div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-success">{{total_invest_count}}</div>
+                                            <div
+                                                class="widget-numbers text-danger"
+                                            >
+                                                {{
+                                                    this.$store.state
+                                                        .IG_max_profit
+                                                }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -550,11 +550,72 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">포트폴리오 재구성</div>
-                                            <div class="widget-subheading">포트폴리오 재구성 회수</div>
+                                            <div class="widget-heading">
+                                                전체 수익률
+                                            </div>
+                                            <div class="widget-subheading">
+                                                깡통만은 제발
+                                            </div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-primary">{{portfolio_arrange}}</div>
+                                            <div
+                                                class="widget-numbers text-warning"
+                                            >
+                                                {{
+                                                    this.$store.state
+                                                        .IG_total_net_profit
+                                                }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">
+                                                투자 횟수
+                                            </div>
+                                            <div class="widget-subheading">
+                                                투자 횟수 합산
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div
+                                                class="widget-numbers text-success"
+                                            >
+                                                {{ total_invest_count }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bg-transparent list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">
+                                                포트폴리오 재구성
+                                            </div>
+                                            <div class="widget-subheading">
+                                                포트폴리오 재구성 회수
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-right">
+                                            <div
+                                                class="widget-numbers text-primary"
+                                            >
+                                                {{ portfolio_arrange }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -564,25 +625,23 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-import IGchart from './Analytics/IG_chart1.vue';
-import IGchart2 from './Analytics/IG_chart2.vue';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import IGchart from "./Analytics/IG_chart1.vue";
+import IGchart2 from "./Analytics/IG_chart2.vue";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
 // import the component
-import Treeselect from '@riophae/vue-treeselect'
+import Treeselect from "@riophae/vue-treeselect";
 // import the styles
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 export default {
-    
-     components: {
-            VuePerfectScrollbar,
-            IGchart,
-            IGchart2,
-            Treeselect
+    components: {
+        VuePerfectScrollbar,
+        IGchart,
+        IGchart2,
+        Treeselect
     },
     name: "InvestmentGame",
     data() {
@@ -590,21 +649,37 @@ export default {
             stockNum: [],
             stockCode: [],
             start_date: "",
-            tstart_date : "",
-            tend_date : "",
-            end_date : "2019-11-26",
+            tstart_date: "",
+            tend_date: "",
+            end_date: "2019-11-26",
             init_money: this.$store.state.IG_init_money,
             init_state_done: false,
 import { ModelSelect } from 'vue-search-select'
 import 'vue-search-select/dist/VueSearchSelect.css'
             ratio: this.$store.state.IG_ratio,
             portfolio_done: false,
+<<<<<<< HEAD
             invest_once : false,
             total_invest_count : 0,
             step_check_toggle : false,
             ModelSelect
             portfolio_arrange : 0,
             options :[],
+=======
+            invest_once: false,
+            total_invest_count: 0,
+            step_check_toggle: false,
+            portfolio_arrange: 0,
+            options: [],
+
+            //날짜 퍼센트용 함수들
+            initial_date : "",
+            total_date_between: 0,
+            t_date_between: 0,
+            progress_percent: 0,
+            percent_max: 100,
+            timer : null,
+>>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
         };
     },
     methods: {
@@ -614,6 +689,22 @@ import 'vue-search-select/dist/VueSearchSelect.css'
                 this.$store.state.IG_init_money = this.init_money;
                 this.$store.state.IG_init_date = this.start_date;
                 this.init_state_done = true;
+                if (this.stockList.length == 0) {
+                
+                    this.$axios
+                        .get("test/" + this.start_date)
+                        .then(response => {
+                            this.stockList = response.data;
+                            //options 에 stockList 내용 넣기
+                        
+                            for (var i = 0; i < this.stockList.length; i++) {
+                                this.options.push({
+                                    label: this.stockList[i].name,
+                                    id: this.stockList[i].code
+                                });
+                            }
+                        });
+                }
             } else {
                 alert("입력을 확인해주세요");
             }
@@ -625,6 +716,7 @@ import 'vue-search-select/dist/VueSearchSelect.css'
                 return;
             } else {
                 this.stockNum.push(null);
+<<<<<<< HEAD
                 if (this.stockList.length == 0) {
                     console.log(this.start_date);
                     this.$axios.get("test/" + this.start_date).then(response => {
@@ -642,6 +734,8 @@ import 'vue-search-select/dist/VueSearchSelect.css'
                     });
                
                 }
+=======
+>>>>>>> 578041708277dbd8b0f8d273c5fd6c8165b6a5d7
             }
         },
         passer: function(i) {
@@ -653,15 +747,14 @@ import 'vue-search-select/dist/VueSearchSelect.css'
             this.stockNum.pop();
         },
         //포트폴리오 재구성
-        cleanportfolo: function()
-        {          
-                this.stockCode = [];
-                this.stockNum = [];
-                this.ratio = [];
-                this.portfolio_done = false;
-                this.portfolio_arrange += 1;
-                this.portfolio_done = false;
-                this.invest_once = false;
+        cleanportfolo: function() {
+            this.stockCode = [];
+            this.stockNum = [];
+            this.ratio = [];
+            this.portfolio_done = false;
+            this.portfolio_arrange += 1;
+            this.portfolio_done = false;
+            this.invest_once = false;
         },
         validation: function() {
             //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
@@ -678,79 +771,79 @@ import 'vue-search-select/dist/VueSearchSelect.css'
             }
         },
         portfolio_init: function(month) {
-            
-            if(this.tstart_date == "")
-            {
+            if (this.tstart_date == "") {
                 var tdatetime;
                 this.tstart_date = this.start_date;
                 tdatetime = this.parse_string_to_date(this.tstart_date);
                 tdatetime.setMonth(tdatetime.getMonth() + month);
                 this.tend_date = this.date_to_string(tdatetime);
-                if(this.tend_date >= this.end_date)
-                {
+
+                if (this.tend_date >= this.end_date) {
                     this.tend_date = this.end_date;
                 }
-            }
-            else
-            {
+            } else {
                 var tdatetime;
                 var tdatetime_day;
                 this.tstart_date = this.tend_date;
-                
+
                 //시작날짜 하루 더하기
-                tdatetime_day = this.parse_string_to_date(this.tstart_date)
-                tdatetime_day.setDate(tdatetime_day.getDate()+1)
-                this.tstart_date = this.date_to_string(tdatetime_day);
-                
+                tdatetime_day = this.parse_string_to_date(this.tstart_date);
+                tdatetime_day.setDate(tdatetime_day.getDate() + 1);
+
                 tdatetime = this.parse_string_to_date(this.tstart_date);
                 tdatetime.setMonth(tdatetime.getMonth() + month);
                 this.tend_date = this.date_to_string(tdatetime);
-                if(this.tend_date >= this.end_date)
-                {
+                if (this.tend_date >= this.end_date) {
                     this.tend_date = this.end_date;
                 }
             }
             //여기서 초기화.
-            if(this.$store.state.IG_chart_done == true)
-            {
+            if (this.$store.state.IG_chart_done == true) {
                 this.$store.state.IG_chart_done = false;
                 this.$store.state.IG_init_stocks = [];
                 this.$store.state.IG_chart_labels = [];
                 this.$store.state.IG_chart_data1 = [];
                 this.$store.state.IG_chart_data2 = [];
-
             }
-            if(this.$store.state.IG_chart_total_done == true)
-            {
+            if (this.$store.state.IG_chart_total_done == true) {
                 this.$store.state.IG_chart_total_done = false;
             }
-            this.$store.dispatch("IGcalculatePortfolio",{
-                    start_date : this.tstart_date,
-                    end_date : this.tend_date,
-                    stockCode : this.stockCode,
-                    ratio : this.ratio, 
+            //프로그레스바 추가 코드
+            var barprogressday = this.parse_string_to_date(this.tend_date);
+            var p_start_date = this.parse_string_to_date(this.start_date);
+            var p_end_date = this.parse_string_to_date(this.end_date);
+            this.t_date_between = (barprogressday - p_start_date) /1000 / 60 / 60 / 24;
+            this.total_date_between = (p_end_date - p_start_date) / 1000 / 60 / 60 / 24;
+            this.progress_percent = Math.floor((this.t_date_between / this.total_date_between) * 100);
+            //프로그레스바 추가 코드 끝
+            this.$store.dispatch("IGcalculatePortfolio", {
+                start_date: this.tstart_date,
+                end_date: this.tend_date,
+                stockCode: this.stockCode,
+                ratio: this.ratio
             });
             this.invest_once = true;
             this.total_invest_count += 1;
         },
-        parse_string_to_date : function(str)
-        {
-            var y = str.substr(0,4),
-                    m = str.substr(5,2)-1,
-                    d = str.substr(8,2);
-            return new Date(y,m,d);
+        parse_string_to_date: function(str) {
+            var y = str.substr(0, 4),
+                m = str.substr(5, 2) - 1,
+                d = str.substr(8, 2);
+            return new Date(y, m, d);
         },
-        date_to_string : function(date)
-        {
-            console.log("date_string:" + date);
-            var y = String(date.getFullYear())
-            var m = String(date.getMonth()+1)
-            var d = String(date.getDate())
-            if(d.length == 1) d= '0'+d;
-            if(m.length ==1) m = '0' + m;
-            var  dateString = y +'-'+  m +'-' +d;
+        date_to_string: function(date) {
+            var y = String(date.getFullYear());
+            var m = String(date.getMonth() + 1);
+            var d = String(date.getDate());
+            if (d.length == 1) d = "0" + d;
+            if (m.length == 1) m = "0" + m;
+            var dateString = y + "-" + m + "-" + d;
             return dateString;
         },
+        beforeDestroy() {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
     }
 };
 </script>

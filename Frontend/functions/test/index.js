@@ -22,10 +22,15 @@ app.get('/:idx', function (req, res, next) {
     })
 });
 
-
+app.get('/SS/:idx', function (req, res, next) {
+    //날짜 req.params.idx로불러 오면됨
+    var code_list = connection.query(`select code,name,date_format(start_date,'%Y-%m-%d') as date from code_list where start_date < '${req.params.idx}' order by name asc `,function(err,result){
+        res.send(result);
+    })
+});
 app.post('/api', function (req, res, next) {
     var date= req.body.date;//입력받은 날짜
-    //console.log(date);
+    console.log(date);
     var stockCode=req.body.stockCode;//선택한 종목코드의 배열
     //console.log(stockCode);
     var querylist = '';
@@ -38,7 +43,7 @@ app.post('/api', function (req, res, next) {
     }
     querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-26';`
     connection.query(querylist,function(req,result){
-        //console.log(result);
+        console.log(result);
         res.send(result);
     })
     //console.log(querylist);

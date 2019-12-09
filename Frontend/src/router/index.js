@@ -39,31 +39,31 @@ export default new Router({
             meta: {layout: 'userpages'},
             component: () => import('../Layout/Components/RegisterBoxed.vue'),
         },
+        // {
+        //     path: '/pages/Chart',
+        //     name : 'Chart',
+        //     component:()=>import('../Layout/Components/Chart.vue'),
+        // },
         {
-            path: '/pages/Chart',
-            name : 'Chart',
-            component:()=>import('../Layout/Components/Chart.vue'),
-        },
-        {
-            path: '/pages/Strategy-Simulator',
+            path: '/pages/StrategySimulator',
             name : 'Strategy Simulator',
             component:()=>import('../Layout/Components/StrategySimulator.vue'),
         },
         {
-            path: '/pages/Stat-Strategy',
+            path: '/pages/StatStrategy',
             name : 'Stat Strategy',
             component:()=>import('../Layout/Components/StatStrategy.vue'),
         },
         {
-            path: '/pages/Investment-Game',
+            path: '/pages/InvestmentGame',
             name : 'InvestmentGame',
             component:()=>import('../Layout/Components/InvestmentGame.vue'),
         },
-        {
-            path: '/pages/Recommend',
-            name : 'Recommend',
-            component:()=>import('../Layout/Components/RecommendStrategy.vue'),
-        }
+        // {
+        //     path: '/pages/Recommend',
+        //     name : 'Recommend',
+        //     component:()=>import('../Layout/Components/RecommendStrategy.vue'),
+        // }
         
     ]
 })

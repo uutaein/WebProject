@@ -75,13 +75,10 @@
                             <div v-for="(idx, i) in stockNum" class="row">
                                 {{ passer(i) }}
                                 <div class="position-relative form-group">
-                                    <treeselect
-                                        v-model="stockCode[i]"
-                                        :multiple="false"
-                                        :options="options"
-                                    />
+                                    <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요" style="width : 250px;">
+                                    </model-select>
                                 </div>
-                                <div class="position-relative form-group">
+                                <div class="position-relative form-group" style="width : 100px;">
                                     <input
                                         v-model="ratio[i]"
                                         type="number"
@@ -627,16 +624,14 @@
 import IGchart from "./Analytics/IG_chart1.vue";
 import IGchart2 from "./Analytics/IG_chart2.vue";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
-// import the component
-import Treeselect from "@riophae/vue-treeselect";
-// import the styles
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import { ModelSelect } from 'vue-search-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
 export default {
     components: {
         VuePerfectScrollbar,
         IGchart,
         IGchart2,
-        Treeselect
+        ModelSelect
     },
     name: "InvestmentGame",
     data() {
@@ -649,7 +644,7 @@ export default {
             end_date: "2019-11-26",
             init_money: this.$store.state.IG_init_money,
             init_state_done: false,
-            stockList: [],
+            stockList:[],
             ratio: this.$store.state.IG_ratio,
             portfolio_done: false,
             invest_once: false,
@@ -674,25 +669,25 @@ export default {
                 this.$store.state.IG_init_money = this.init_money;
                 this.$store.state.IG_init_date = this.start_date;
                 this.init_state_done = true;
-                if (this.stockList.length == 0) {
-                
-                    this.$axios
-                        .get("test/" + this.start_date)
-                        .then(response => {
-                            this.stockList = response.data;
-                            //options 에 stockList 내용 넣기
-                        
-                            for (var i = 0; i < this.stockList.length; i++) {
-                                this.options.push({
-                                    label: this.stockList[i].name,
-                                    id: this.stockList[i].code
-                                });
-                            }
-                        });
+                //console.log("처음 배열의 길이는 " + this.stockList)
+                 if (this.stockList.length == 0) {
+                    console.log(this.start_date);
+                    this.$axios.get("test/" + this.start_date).then(response => {
+                        this.stockList = response.data;
+                        //options 에 stockList 내용 넣기
+                        //console.log("나중 배열의 길이는 " + this.stockList.length)
+                        for(var i=0;i<this.stockList.length;i++){
+                             this.options.push({text: this.stockList[i].name,
+                                        value:this.stockList[i].code})
+                        }
+                    });
+               
                 }
-            } else {
+              
+              } else {
                 alert("입력을 확인해주세요");
             }
+            
         },
         addStock: function() {
             if (this.init_state_done == false) {
@@ -714,11 +709,13 @@ export default {
         cleanportfolo: function() {
             this.stockCode = [];
             this.stockNum = [];
+            this.$store.state.IG_ratio = [];
             this.ratio = [];
             this.portfolio_done = false;
             this.portfolio_arrange += 1;
             this.portfolio_done = false;
             this.invest_once = false;
+            //console.log("비율 초기화 : " + this.ratio);
         },
         validation: function() {
             //입력완료 눌렀을때 비중입력 총합 100이하인지 확인하는 함수
@@ -731,7 +728,7 @@ export default {
                 return false;
             } else {
                 this.portfolio_done = true;
-                console.log(this.stockCode);
+                //console.log(this.stockCode);
             }
         },
         portfolio_init: function(month) {
@@ -780,6 +777,7 @@ export default {
             this.total_date_between = (p_end_date - p_start_date) / 1000 / 60 / 60 / 24;
             this.progress_percent = Math.floor((this.t_date_between / this.total_date_between) * 100);
             //프로그레스바 추가 코드 끝
+            
             this.$store.dispatch("IGcalculatePortfolio", {
                 start_date: this.tstart_date,
                 end_date: this.tend_date,

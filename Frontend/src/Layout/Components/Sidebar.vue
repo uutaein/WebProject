@@ -53,19 +53,15 @@
                         icon: 'pe-7s-browser',
                         child: [
                             {
-                                href: '/pages/Strategy-Simulator',
+                                href: '/pages/StrategySimulator',
                                 title: 'Strategy Simulator',
                             },
                             {
-                                href: '/pages/Chart',
-                                title: 'Chart',
-                            },
-                            {
-                                href: '/pages/Stat-Strategy',
+                                href: '/pages/StatStrategy',
                                 title: 'Stat Strategy',
                             },
                              {
-                                href: '/pages/Investment-Game',
+                                href: '/pages/InvestmentGame',
                                 title: 'Investment Game',
                             }
                         ]

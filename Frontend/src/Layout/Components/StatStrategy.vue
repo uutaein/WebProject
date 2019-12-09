@@ -107,8 +107,7 @@
                 chart:'',
                 chartOn:false,
                 tableOn:false,
-                filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
-                    {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},]
+                filteredStockData:[]
             }
         },
         methods:{
@@ -241,22 +240,7 @@
                 this.tableOn=true;
                 this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
-                    console.log(response.data);
-                    /*  data(){
-                                return{
-                                    MinStat:[1,1,1,1,1,1],
-                                    MaxStat:[2,2,2,2,2,2],
-                                    StatInfo:[],
-                                    date:'',
-                                    chart:'',
-                                    chartOn:false,
-                                    tableOn:false,
-                                    filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
-                                        {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},]
-                                }
-                        } 
-                        this.stockList=response.data;
-                    */
+                    //console.log(response.data);
                    this.filteredStockData = response.data;
                 })
             },

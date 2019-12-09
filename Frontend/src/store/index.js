@@ -96,7 +96,7 @@ export default new Vuex.Store({
                 state.SS_chart_data1.push(tvalue);
             }
             //날짜, 코스피 지수 차트저장 완료
-            console.log(state.SS_chart_data1);
+            //console.log(state.SS_chart_data1);
 
             for(var i=0; i<=payloadNumSize; i++)
             {
@@ -109,7 +109,7 @@ export default new Vuex.Store({
                 var tinit_stocks = state.SS_init_money*state.SS_ratio[i] / payload.data[i][payloadNumSize].close/100;
                 state.SS_init_stocks.push(tinit_stocks);
             }
-            console.log(state.SS_init_stocks);
+            //console.log(state.SS_init_stocks);
 
             // 포트폴리오 변동 계산.
             for(var i=0; i<=payloadNumSize; i++)
@@ -138,7 +138,7 @@ export default new Vuex.Store({
         },
         IGcalculatePortfolioSuccess(state, payload)
         {
-            
+            //console.log("전송:"+payload.data);
             //살 종목의 개수 + 1(코스피)
             var payloadSize = payload.data.length-1;
             //날짜의 개수
@@ -242,6 +242,7 @@ export default new Vuex.Store({
         },
         IGcalculatePortfolio({commit},payload)
         {
+            this.state.IG_ratio = payload.ratio;
             axios.post('test/apitest',payload)
                 .then((res) => {
                     commit('IGcalculatePortfolioSuccess',res);

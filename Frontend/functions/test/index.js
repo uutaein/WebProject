@@ -107,6 +107,7 @@ app.post('/stat',function(req,res,next){
     connection.query(`select code,name,stock_capital,per, net_profit,roe,profit_3m from rank_corp \
             where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit} order by stock_capital desc`,function(err,result){
             res.send(result);
+
     })
 })
 

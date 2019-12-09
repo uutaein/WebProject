@@ -43,7 +43,7 @@ app.post('/api', function (req, res, next) {
     }
     querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-26';`
     connection.query(querylist,function(req,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
     //console.log(querylist);
@@ -63,10 +63,10 @@ app.post('/apitest', function (req, res, next) {
     }
     querylist += `select close,date from ckospi_index where date between '${start_date}' and '${end_date}';`
     connection.query(querylist,function(req,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
-    console.log(querylist);
+    //console.log(querylist);
 });
 
 //Made by 201521005 , 박병건 
@@ -99,15 +99,12 @@ app.post('/stat',function(req,res,next){
     const Range_size = `size_rank>=${Min_size} and size_rank<=${Max_size}`
     const Range_volume = `volume_rank>=${Min_volume} and volume_rank<=${Max_volume}`
     const Range_momentum = `momentum_3m_profitage_rank>=${Min_momentum} and momentum_3m_profitage_rank<=${Max_momentum}`
-    const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`
+    const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`    
     const Range_growth = `growth_rank>=${Min_growth} and growth_rank<=${Max_growth}`
     const Range_profit = `profitage_rank>=${Min_profit} and profitage_rank<=${Max_profit}` 
-    console.log(`select code,name,stock_capital,per, net_profit,roe,profit_3m from rank_corp \
-                where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit} ;`);
-    connection.query(`select code,name,stock_capital,per, net_profit,roe,profit_3m from rank_corp \
-            where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit} order by stock_capital desc`,function(err,result){
-            res.send(result);
-
+    connection.query(`select code,name,stock_capital ,per, net_profit,roe,profit_3m  from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit}`,function(err,result){
+        //console.log(result);
+        res.send(result);
     })
 })
 

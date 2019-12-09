@@ -73,14 +73,14 @@
         <div id="tableZone" v-if="tableOn">
             <table id="resultTable" border="1" bordercolor="#3ac18a">
                 <tr bgcolor="#3AC18A" style="color: white">
-                    <td width="180px">종목명</td>
-                    <td width="120px">시가총액<br>(단위:억원)</td>
-                    <td>PER(배)</td>
-                    <td width="140px">영업이익(%)</td>
-                    <td>ROE(%)</td>
-                    <td width="100px">3개월<br>수익률</td>
+                    <td>종목명</td>
+                    <td>시가총액</td>
+                    <td>PER</td>
+                    <td>영업이익(%)</td>
+                    <td>ROE</td>
+                    <td>3개월 수익률(%)</td>
                 </tr>
-                <tr v-for="idx in filteredStockData" v-bind:value="idx.name">
+                <tr v-for="idx in filteredStockData">
                     <td>{{idx.name}}</td>
                     <td>{{idx.stock_capital}}</td>
                     <td>{{idx.per}}</td>
@@ -107,7 +107,7 @@
                 chart:'',
                 chartOn:false,
                 tableOn:false,
-                filteredStockData:[]
+                filteredStockData:[],
             }
         },
         methods:{
@@ -240,7 +240,7 @@
                 this.tableOn=true;
                 this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
-                    //console.log(response.data);
+                   // console.log(response.data);
                    this.filteredStockData = response.data;
                 })
             },

@@ -64,11 +64,11 @@ export default new Router({
             name : 'InvestmentGame',
             component:()=>import('../Layout/Components/InvestmentGame.vue'),
         },
-        // {
-        //     path: '/pages/Recommend',
-        //     name : 'Recommend',
-        //     component:()=>import('../Layout/Components/RecommendStrategy.vue'),
-        // }
+        {
+            path: '/pages/Recommend',
+            name : 'Recommend',
+            component:()=>import('../Layout/Components/RecommendStrategy.vue'),
+        }
         
     ]
 })

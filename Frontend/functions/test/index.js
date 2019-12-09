@@ -94,14 +94,14 @@ app.post('/stat',function(req,res,next){
     const Range_size = `size_rank>=${Min_size} and size_rank<=${Max_size}`
     const Range_volume = `volume_rank>=${Min_volume} and volume_rank<=${Max_volume}`
     const Range_momentum = `momentum_3m_profitage_rank>=${Min_momentum} and momentum_3m_profitage_rank<=${Max_momentum}`
-    const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`
+    //const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`    넣어야됨
     const Range_growth = `growth_rank>=${Min_growth} and growth_rank<=${Max_growth}`
     const Range_profit = `profitage_rank>=${Min_profit} and profitage_rank<=${Max_profit}` 
-    console.log(Range_size,Range_volume,Range_momentum,Range_low_val,Range_growth,Range_profit)
-    // connection.query(`select * from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit}`,function(err,res){
-    //     res.send(result);
-    // })
-    res.send("돌아가는값")
+    console.log(Range_size,Range_volume,Range_momentum,Range_growth,Range_profit)
+    connection.query(`select * from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum}  and ${Range_growth} and ${Range_profit}`,function(err,result){
+        console.log("결과는 : " + result);
+        res.send(result);
+    })
 })
 // app.get('/',function(req,res,next){
 //     console.log("req.body = " + req.body)

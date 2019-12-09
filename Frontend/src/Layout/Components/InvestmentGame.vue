@@ -75,19 +75,8 @@
                             <div v-for="(idx, i) in stockNum" class="row">
                                 {{ passer(i) }}
                                 <div class="position-relative form-group">
-                                    <treeselect v-model="stockCode[i]" :multiple="false" :options="options" />
-                                </div>
-                                <div class="position-relative form-group">
-                                    <input
-                                        v-model="ratio[i]"
-                                        type="number"
-                                        placeholder="비중(%)"
-                                        class="form-control"
-                                    />
-                                </div>
-                                <div class="position-relative form-group">
-                                    <b-button
-                                        class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-sm"
+                                <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요">
+                                    </model-select>
                                         variant="warning"
                                         style="float : right; margin-left : 20px"
                                         @click="deleteStock"
@@ -606,12 +595,14 @@ export default {
             end_date : "2019-11-26",
             init_money: this.$store.state.IG_init_money,
             init_state_done: false,
-            stockList: [],
+import { ModelSelect } from 'vue-search-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
             ratio: this.$store.state.IG_ratio,
             portfolio_done: false,
             invest_once : false,
             total_invest_count : 0,
             step_check_toggle : false,
+            ModelSelect
             portfolio_arrange : 0,
             options :[],
         };
@@ -630,6 +621,7 @@ export default {
         addStock: function() {
             if (this.init_state_done == false) {
                 alert("값을 입력해주세요");
+            options :[],
                 return;
             } else {
                 this.stockNum.push(null);
@@ -638,11 +630,17 @@ export default {
                     this.$axios.get("test/" + this.start_date).then(response => {
                         this.stockList = response.data;
                         //options 에 stockList 내용 넣기
+                 if (this.stockList.length == 0) {
+                    console.log(this.start_date);
+                    this.$axios.get("test/" + this.start_date).then(response => {
+                        this.stockList = response.data;
+                        //options 에 stockList 내용 넣기
                         for(var i=0;i<this.stockList.length;i++){
-                             this.options.push({label:'종목코드 : ' + this.stockList[i].code + ' 종목명 : '+ this.stockList[i].name,
-                                        id:this.stockList[i].code})
+                             this.options.push({text: this.stockList[i].name,
+                                        value:this.stockList[i].code})
                         }
                     });
+               
                 }
             }
         },

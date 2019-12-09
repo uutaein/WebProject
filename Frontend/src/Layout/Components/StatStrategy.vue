@@ -75,18 +75,18 @@
                 <tr bgcolor="#3AC18A" style="color: white">
                     <td>종목명</td>
                     <td>시가총액</td>
-                    <td>변동성</td>
-                    <td>PER(배)</td>
+                    <td>PER</td>
                     <td>영업이익(%)</td>
-                    <td>ROE(%)</td>
+                    <td>ROE</td>
+                    <td>3개월 수익률(%)</td>
                 </tr>
                 <tr v-for="idx in filteredStockData">
                     <td>{{idx.name}}</td>
-                    <td>{{idx.total}}</td>
-                    <td>{{idx.variability}}</td>
-                    <td>{{idx.PER}}</td>
-                    <td>{{idx.profit}}</td>
-                    <td>{{idx.ROE}}</td>
+                    <td>{{idx.stock_capital}}</td>
+                    <td>{{idx.per}}</td>
+                    <td>{{idx.net_profit}}</td>
+                    <td>{{idx.roe}}</td>
+                    <td>{{idx.profit_3m}}</td>
                 </tr>
             </table>
         </div>
@@ -107,8 +107,7 @@
                 chart:'',
                 chartOn:false,
                 tableOn:false,
-                filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
-                    {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},]
+                filteredStockData:[],
             }
         },
         methods:{
@@ -242,6 +241,7 @@
                 this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
                     console.log(response.data)
+                    this.filteredStockData = response.data
                 })
             },
             clearTable: function () {

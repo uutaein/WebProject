@@ -43,7 +43,7 @@ app.post('/api', function (req, res, next) {
     }
     querylist += `select close,date from ckospi_index where date between '${date}' and '2019-11-26';`
     connection.query(querylist,function(req,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
     //console.log(querylist);
@@ -63,10 +63,10 @@ app.post('/apitest', function (req, res, next) {
     }
     querylist += `select close,date from ckospi_index where date between '${start_date}' and '${end_date}';`
     connection.query(querylist,function(req,result){
-        console.log(result);
+        //console.log(result);
         res.send(result);
     })
-    console.log(querylist);
+    //console.log(querylist);
 });
 
 //Made by 201521005 , 박병건 
@@ -102,7 +102,8 @@ app.post('/stat',function(req,res,next){
     const Range_low_val = `low_val_rank>=${Min_low_val} and low_val_rank<=${Max_low_val}`    
     const Range_growth = `growth_rank>=${Min_growth} and growth_rank<=${Max_growth}`
     const Range_profit = `profitage_rank>=${Min_profit} and profitage_rank<=${Max_profit}` 
-    connection.query(`select code,name as 종목,stock_capital as 시가총액,per as PER, net_profit as 영업이익,roe as ROE,profit_3m as 3개월수익률 from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit} order by stock_capital desc`,function(err,result){
+    connection.query(`select code,name,stock_capital ,per, net_profit,roe,profit_3m  from rank_corp where ${Range_size} and ${Range_volume} and ${Range_momentum} and ${Range_low_val} and ${Range_growth} and ${Range_profit}`,function(err,result){
+        //console.log(result);
         res.send(result);
     })
 })

@@ -80,7 +80,7 @@
                     <td>ROE</td>
                     <td>3개월 수익률(%)</td>
                 </tr>
-                <tr v-for="idx in filteredStockData" v-bind:value="idx.name">
+                <tr v-for="idx in filteredStockData">
                     <td>{{idx.name}}</td>
                     <td>{{idx.stock_capital}}</td>
                     <td>{{idx.per}}</td>
@@ -240,7 +240,7 @@
                 this.tableOn=true;
                 this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
-                    //console.log(response.data);
+                   // console.log(response.data);
                    this.filteredStockData = response.data;
                 })
             },

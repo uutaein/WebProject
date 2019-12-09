@@ -73,20 +73,20 @@
         <div id="tableZone" v-if="tableOn">
             <table id="resultTable" border="1" bordercolor="#3ac18a">
                 <tr bgcolor="#3AC18A" style="color: white">
-                    <td>종목명</td>
-                    <td>시가총액</td>
-                    <td>변동성</td>
+                    <td width="180px">종목명</td>
+                    <td width="120px">시가총액<br>(단위:억원)</td>
                     <td>PER(배)</td>
-                    <td>영업이익(%)</td>
+                    <td width="140px">영업이익(%)</td>
                     <td>ROE(%)</td>
+                    <td width="100px">3개월<br>수익률</td>
                 </tr>
-                <tr v-for="idx in filteredStockData">
+                <tr v-for="idx in filteredStockData" v-bind:value="idx.name">
                     <td>{{idx.name}}</td>
-                    <td>{{idx.total}}</td>
-                    <td>{{idx.variability}}</td>
-                    <td>{{idx.PER}}</td>
-                    <td>{{idx.profit}}</td>
-                    <td>{{idx.ROE}}</td>
+                    <td>{{idx.stock_capital}}</td>
+                    <td>{{idx.per}}</td>
+                    <td>{{idx.net_profit}}</td>
+                    <td>{{idx.roe}}</td>
+                    <td>{{idx.profit_3m}}</td>
                 </tr>
             </table>
         </div>
@@ -100,8 +100,8 @@
         name: "StatStrategy",
         data(){
             return{
-                MinStat:[1,1,1,1,1,1],
-                MaxStat:[2,2,2,2,2,2],
+                MinStat:[3,3,2,2,2,2],
+                MaxStat:[4,5,4,4,4,4],
                 StatInfo:[],
                 date:'',
                 chart:'',
@@ -240,8 +240,24 @@
             findCompany: function(){
                 this.tableOn=true;
                 this.clearTable();
-                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat},function(err,res){
-                    console.log(res.data);
+                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
+                    console.log(response.data);
+                    /*  data(){
+                                return{
+                                    MinStat:[1,1,1,1,1,1],
+                                    MaxStat:[2,2,2,2,2,2],
+                                    StatInfo:[],
+                                    date:'',
+                                    chart:'',
+                                    chartOn:false,
+                                    tableOn:false,
+                                    filteredStockData:[{name:'삼성',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},
+                                        {name:'애플',total:'300조 8,770억',variability:'10%',PER:6.42,profit:24.16,ROE:19.63},]
+                                }
+                        } 
+                        this.stockList=response.data;
+                    */
+                   this.filteredStockData = response.data;
                 })
             },
             clearTable: function () {
@@ -266,7 +282,7 @@
     float: right;
 }
 #resultTable{
-    width: 85%;
+    width: 95%;
     text-align: center;
 }
 #graphzone{

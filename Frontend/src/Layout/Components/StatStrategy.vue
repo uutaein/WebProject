@@ -80,7 +80,7 @@
                     <td>ROE</td>
                     <td>3개월 수익률(%)</td>
                 </tr>
-                <tr v-for="idx in filteredStockData">
+                <tr v-for="idx in filteredStockData" v-bind:value="idx.name">
                     <td>{{idx.name}}</td>
                     <td>{{idx.stock_capital}}</td>
                     <td>{{idx.per}}</td>
@@ -100,8 +100,8 @@
         name: "StatStrategy",
         data(){
             return{
-                MinStat:[1,1,1,1,1,1],
-                MaxStat:[2,2,2,2,2,2],
+                MinStat:[3,3,2,2,2,2],
+                MaxStat:[4,5,4,4,4,4],
                 StatInfo:[],
                 date:'',
                 chart:'',
@@ -240,8 +240,8 @@
                 this.tableOn=true;
                 this.clearTable();
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
-                    console.log(response.data)
-                    this.filteredStockData = response.data
+                    //console.log(response.data);
+                   this.filteredStockData = response.data;
                 })
             },
             clearTable: function () {
@@ -266,7 +266,7 @@
     float: right;
 }
 #resultTable{
-    width: 85%;
+    width: 95%;
     text-align: center;
 }
 #graphzone{

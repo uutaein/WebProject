@@ -170,6 +170,33 @@
             saveDataInFB: function () {
 
             }
+        },
+        created(){
+                this.$store.state.SS_init_money = 0,
+                this.$store.state.SS_init_stocks = [],
+                this.$store.state.SS_init_index_stock_num = 0,
+                this.$store.state.SS_ratio = [],
+                this.$store.state.SS_chart_labels = [],
+                this.$store.state.SS_chart_data1 = [],
+                this.$store.state.SS_chart_data2 = [],
+                this.$store.state.SS_chart_done = false,
+
+                //총 투자 수익률
+                this.$store.state.SS_whole_profit = 0,
+
+                //연환산 수익률
+                this.$store.state.SS_annual_profit = 0,
+
+                this.stockNum=[],
+                this.date='',
+                this.budget= 0,
+                this.stockCode= [],
+                this.stockList= [],
+
+                this.ratio= this.$store.state.SS_ratio,
+                this.tmp=0,
+                this.valid=false,
+                this.options=[]
         }
     }
 </script>

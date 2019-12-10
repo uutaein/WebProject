@@ -74,7 +74,7 @@
             <table id="resultTable" border="1" bordercolor="#3ac18a">
                 <tr bgcolor="#3AC18A" style="color: white">
                     <td>종목명</td>
-                    <td>시가총액</td>
+                    <td>시가총액(:10억원)</td>
                     <td>PER</td>
                     <td>영업이익(%)</td>
                     <td>ROE</td>
@@ -98,10 +98,26 @@
 
     export default {
         name: "StatStrategy",
+        mounted(){
+            if(!this.$route.params.min){
+                return;
+            }
+            else{
+                this.tableOn=true;
+                this.MinStat = this.$route.params.min;
+                this.MaxStat = this.$route.params.max;
+                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
+                    // console.log(response.data);
+                    this.filteredStockData = response.data;
+                    this.filter_len = response.data.length;
+                })
+                this.showRadar();
+            }
+        },
         data(){
             return{
-                MinStat:[3,3,2,2,2,2],
-                MaxStat:[4,5,4,4,4,4],
+                MinStat:[1,1,1,1,1,1],
+                MaxStat:[4,4,4,4,4,4],
                 StatInfo:[],
                 date:'',
                 chart:'',

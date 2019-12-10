@@ -13,6 +13,7 @@
                     <li>수익성 score 3이상</li>
                     <li>거래량 score 4이상</li>
                 </ul>
+                <b-button variant="focus" @click="showRecommendedStocks(0)">구성종목 보기</b-button>
             </div>
         </div>
         <div id="line2" class="line">
@@ -29,6 +30,7 @@
                     <li>거래량 score 3이상</li>
                     <li>모멘텀 score 2이상 4이하</li>
                 </ul>
+                <b-button variant="focus" @click="showRecommendedStocks(1)">구성종목 보기</b-button>
             </div>
         </div>
         <div id="line3" class="line">
@@ -45,6 +47,7 @@
                     <li>수익성 score 4이상</li>
                     <li>성장성 score 4이상</li>
                 </ul>
+                <b-button variant="focus" @click="showRecommendedStocks(2)">구성종목 보기</b-button>
             </div>
         </div>
         <div id="line4" class="line">
@@ -61,6 +64,7 @@
                     <li>수익성 score 4이상</li>
                     <li>성장성 score 3이상</li>
                 </ul>
+                <b-button variant="focus" @click="showRecommendedStocks(3)">구성종목 보기</b-button>
             </div>
         </div>
         <div id="line5" class="line">
@@ -76,6 +80,7 @@
                     <li>거래량 score 2이상</li>
                     <li>저평가 score 2이상</li>
                 </ul>
+                <b-button variant="focus" @click="showRecommendedStocks(4)">구성종목 보기</b-button>
             </div>
         </div>
         <b-button variant="outline-info" @click="moveBack">전략페이지로 돌아가기</b-button>
@@ -86,6 +91,15 @@
     import Chart from 'chart.js'
     export default {
         name: "RecommendStrategy",
+        data(){
+            return{
+                preset:[{min:[5,4,2,4,3,3],max:[5,5,5,5,5,5]},//블루칩
+                    {min:[5,3,2,1,4,1],max:[5,5,4,5,5,5]},//대형성장
+                    {min:[2,2,1,5,4,4],max:[3,5,5,5,5,5]},//중소형밸류
+                    {min:[1,3,1,4,4,4],max:[5,5,1,5,5,5]},//컨트래리안
+                    {min:[2,2,1,1,3,3],max:[5,5,5,5,5,5]}]//로우볼
+            }
+        },
         mounted(){
             var ctx1=document.getElementById('g1')
             let radar1=new Chart(ctx1,{
@@ -276,6 +290,12 @@
         methods:{
             moveBack: function () {
                 this.$router.push('/pages/StatStrategy')
+            },
+            showRecommendedStocks: function (i) {
+                this.$router.push({
+                    name: 'Stat Strategy',
+                    params: {"min":this.preset[i].min,"max":this.preset[i].max}
+                });
             }
         }
     }

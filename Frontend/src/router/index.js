@@ -39,11 +39,6 @@ export default new Router({
             meta: {layout: 'userpages'},
             component: () => import('../Layout/Components/RegisterBoxed.vue'),
         },
-        // {
-        //     path: '/pages/Chart',
-        //     name : 'Chart',
-        //     component:()=>import('../Layout/Components/Chart.vue'),
-        // },
         {
             path: '/pages/StrategySimulator',
             name : 'Strategy Simulator',
@@ -53,22 +48,6 @@ export default new Router({
             path: '/pages/StatStrategy',
             name : 'Stat Strategy',
             component:()=>import('../Layout/Components/StatStrategy.vue'),
-        },
-        {
-            path: '/pages/StatStrategy2',
-            name : 'Stat Strategy2',
-            component:()=>import('../Layout/Components/StatStrategy2.vue'),
-            props: true,
-        },
-        {
-            path: '/pages/StatStrategy2',
-            name : 'Stat Strategy2',
-            component:()=>import('../Layout/Components/StatStrategy2.vue'),
-        },
-        {
-            path: '/pages/Recommend2',
-            name : 'Recommend2',
-            component:()=>import('../Layout/Components/RecommendStrategy2.vue'),
         },
         {
             path: '/pages/InvestmentGame',

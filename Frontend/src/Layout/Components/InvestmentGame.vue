@@ -235,7 +235,7 @@
                                                             <div>
                                                                 <span
                                                                     class="text-warning"
-                                                                    >{{this.$store.state.IG_profit}}</span
+                                                                    >{{this.$store.state.IG_profit.toFixed(2)}}%</span
                                                                 >
                                                             </div>
                                                             
@@ -290,7 +290,7 @@
                                                                 class="widget-numbers text-success"
                                                             >
                                                                 <small>₩</small>
-                                                                {{this.$store.state.IG_net_money}}
+                                                                {{this.$store.state.IG_net_money.toFixed(0)}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -353,7 +353,7 @@
                                                             <div>
                                                                 <span
                                                                     class="text-warning"
-                                                                    >{{this.$store.state.IG_total_net_profit}}</span
+                                                                    >{{this.$store.state.IG_total_net_profit.toFixed(2)}}%</span
                                                                 >
                                                             </div>
                                                             
@@ -408,7 +408,7 @@
                                                                 class="widget-numbers text-success"
                                                             >
                                                                 <small>₩</small>
-                                                                {{this.$store.state.IG_total_net_money}}
+                                                                {{this.$store.state.IG_total_net_money.toFixed(0)}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -476,7 +476,7 @@
                                             >
                                                 {{
                                                     this.$store.state
-                                                        .IG_init_money
+                                                        .IG_init_money.toFixed(2)
                                                 }}
                                             </div>
                                         </div>
@@ -529,8 +529,8 @@
                                             >
                                                 {{
                                                     this.$store.state
-                                                        .IG_max_profit
-                                                }}
+                                                        .IG_max_profit.toFixed(2)
+                                                }}%
                                             </div>
                                         </div>
                                     </div>
@@ -555,8 +555,8 @@
                                             >
                                                 {{
                                                     this.$store.state
-                                                        .IG_total_net_profit
-                                                }}
+                                                        .IG_total_net_profit.toFixed(2)
+                                                }}%
                                             </div>
                                         </div>
                                     </div>

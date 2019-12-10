@@ -39,19 +39,10 @@
                         title: 'Main Navigation',
                     },
                     {
-                        title: 'Dashboards',
-                        icon: 'pe-7s-rocket',
-                        child: [
-                            {
-                                href: '/Dashboards',
-                                title: 'Analytics',
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Pages',
-                        icon: 'pe-7s-browser',
-                        child: [
+                        title: 'Home',
+                        href: '/Dashboards',
+                           
+                    },                
                             {
                                 href: '/pages/StrategySimulator',
                                 title: 'Strategy Simulator',
@@ -64,9 +55,6 @@
                                 href: '/pages/InvestmentGame',
                                 title: 'Investment Game',
                             },
-                        ]
-
-                    },
                 ],
                 collapsed: true,
 

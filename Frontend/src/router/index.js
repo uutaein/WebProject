@@ -43,21 +43,49 @@ export default new Router({
             path: '/pages/StrategySimulator',
             name : 'Strategy Simulator',
             component:()=>import('../Layout/Components/StrategySimulator.vue'),
+            beforeEnter:(to,from,next)=>{
+                if(firebase.auth().currentUser) next();
+                else {
+                    alert('잘못된 접근입니다!')
+                    next('/')
+                }
+            }
         },
         {
             path: '/pages/StatStrategy',
             name : 'Stat Strategy',
             component:()=>import('../Layout/Components/StatStrategy.vue'),
+            beforeEnter:(to,from,next)=>{
+                if(firebase.auth().currentUser) next();
+                else {
+                    alert('잘못된 접근입니다!')
+                    next('/')
+                }
+            }
         },
         {
             path: '/pages/InvestmentGame',
             name : 'InvestmentGame',
             component:()=>import('../Layout/Components/InvestmentGame.vue'),
+            beforeEnter:(to,from,next)=>{
+                if(firebase.auth().currentUser) next();
+                else {
+                    alert('잘못된 접근입니다!')
+                    next('/')
+                }
+            }
         },
         {
             path: '/pages/Recommend',
             name : 'Recommend',
             component:()=>import('../Layout/Components/RecommendStrategy.vue'),
+            beforeEnter:(to,from,next)=>{
+                if(firebase.auth().currentUser) next();
+                else {
+                    alert('잘못된 접근입니다!')
+                    next('/')
+                }
+            }
         }
         
     ]

@@ -49,7 +49,7 @@
                             },
                             {
                                 href: '/StatStrategy',
-                                title: 'Stat Strategy',
+                                title: 'Stock Finder',
                             },
                             {
                                 href: '/InvestmentGame',

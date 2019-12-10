@@ -2,7 +2,7 @@
     <div id="Dashboards">
         <p class="title">Welcome to My Asset</p>
         <button class="circles" id="Btn0" @click="movetoStrategySimulator" @mouseover="mouseoverDescription(0)" @mouseleave="mouseleaveDescription(0)">Strategy Simulator</button>
-        <button class="circles" id="Btn1" @click="movetoStatStrategy" @mouseover="mouseoverDescription(1)" @mouseleave="mouseleaveDescription(1)">Stat Strategy Simulator</button>
+        <button class="circles" id="Btn1" @click="movetoStatStrategy" @mouseover="mouseoverDescription(1)" @mouseleave="mouseleaveDescription(1)">Stock Finder</button>
         <button class="circles" id="Btn2" @click="movetoInvestGame" @mouseover="mouseoverDescription(2)" @mouseleave="mouseleaveDescription(2)">Investment Game</button>
     </div>
 </template>
@@ -18,7 +18,7 @@
                 return function mouseoverdescription(i) {
                     var description=[]
                     description.push("포트폴리오 성과 추출기")
-                    description.push("주식스탯으로 세워보는 나만의 전략")
+                    description.push("스탯을 통한 종목 선정 길잡이")
                     description.push("모의 주식투자")
                     console.log(description[0])
                     document.getElementById('Btn'+i).innerText=description[i];
@@ -38,14 +38,14 @@
                 mouseoverDescription: function (i) {
                     var description=[]
                     description.push("포트폴리오 성과 추출기")
-                    description.push("주식스탯으로 세워보는 나만의 전략")
+                    description.push("스탯을 통한 종목 선정 길잡이")
                     description.push("모의 주식투자")
                     document.getElementById('Btn'+i).innerText=description[i];
                 },
                 mouseleaveDescription: function (i) {
                     var description=[]
                     description.push("Strategy Simulator")
-                    description.push("Stat Strategy")
+                    description.push("Stock Finder")
                     description.push("Invest Game")
                     document.getElementById('Btn'+i).innerText=description[i];
                 }

@@ -2,9 +2,9 @@
     <div id="StatStrategy">
         <div id="selectZone">
             <h1>
-                주식스탯전략 시뮬레이터<br>
+                종목 길잡이<br>
             </h1>
-            <p>주식스탯으로 세워보는 나만의 전략(2018.12 기준)</p><hr>
+            <p>스탯을 통한 종목 선정 길잡이</p><hr>
             <div id="graphzone" style="display: none">
                 <canvas id="Radar" width="450" height="300"></canvas>
             </div>

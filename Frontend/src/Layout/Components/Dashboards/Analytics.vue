@@ -26,13 +26,13 @@
             },
             methods: {
                 movetoStrategySimulator: function () {
-                    this.$router.push('/pages/StrategySimulator');
+                    this.$router.push('/StrategySimulator');
                 },
                 movetoStatStrategy: function () {
-                    this.$router.push('/pages/StatStrategy');
+                    this.$router.push('/StatStrategy');
                 },
                 movetoInvestGame: function () {
-                    this.$router.push('/pages/InvestmentGame');
+                    this.$router.push('/InvestmentGame');
 
                 },
                 mouseoverDescription: function (i) {

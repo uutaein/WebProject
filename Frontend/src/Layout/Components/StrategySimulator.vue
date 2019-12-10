@@ -13,13 +13,19 @@
             <input v-model="budget" type="number" placeholder="초기자본금 설정"><hr>
             <b-button variant="outline-info" @click="addStock" size="sm">종목추가</b-button>
             <b-button variant="outline-danger" @click="deleteStock" size="sm">종목삭제</b-button>
-            <div v-for="(idx,i) in stockNum" class="inputContainer" >
+            <div v-for="(idx,i) in stockNum" class="row" >
                 {{passer(i)}}
-                <label for="stockCode">종목코드</label>
+                <!-- <label for="stockCode">종목코드</label>
                 <select id="stockCode" v-model="stockCode[i]">
                     <option v-for="idx in stockList" v-bind:value="idx.code">코드:{{idx.code}} /종목명:{{idx.name}} /상장일자:{{idx.date}}</option>
-                </select>
+                </select> -->
+                <div class="position-relative form-group">
+                                    <model-select :options="options" v-model="stockCode[i]" placeholder="주식을 선택해주세요" style="width : 250px;">
+                                    </model-select>
+                </div>
+                  <div class="position-relative form-group" style="width : 100px;">
                 <input v-model="ratio[i]" type="number" placeholder="비중(%)">
+                </div>
             </div>
             <br>
             <b-button variant="success" @click="validation" size="sm">입력완료</b-button>
@@ -83,11 +89,13 @@
     import SSchart from './Analytics/SS_chart1';
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
     import firebase from 'firebase'
-
+    import { ModelSelect } from 'vue-search-select'
+    import 'vue-search-select/dist/VueSearchSelect.css'
     export default {
         components: {
             VuePerfectScrollbar,
             SSchart,
+            ModelSelect
         },
         name: "StrategySimulator",
         data(){
@@ -99,7 +107,8 @@
                 stockList: [],
                 ratio: this.$store.state.SS_ratio,
                 tmp:0,
-                valid:false
+                valid:false,
+                options:[]
 
             }
         },
@@ -116,6 +125,10 @@
                         console.log(this.date)
                         this.$axios.get('test/SS/'+this.date).then(response=>{
                             this.stockList=response.data;
+                            for(var i=0;i<this.stockList.length;i++){
+                             this.options.push({text: this.stockList[i].name,
+                                        value:this.stockList[i].code})
+                        }
                         })
                     }
                 }

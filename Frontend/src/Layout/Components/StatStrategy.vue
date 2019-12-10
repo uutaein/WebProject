@@ -251,7 +251,7 @@
                 document.getElementById('graphzone').style.display="none"
             },
             showRecommend: function () {
-                this.$router.push('/pages/Recommend');
+                this.$router.push('/Recommend');
             },
             findCompany: function(){
                 this.tableOn=true;

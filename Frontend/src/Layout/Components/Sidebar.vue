@@ -44,15 +44,15 @@
                            
                     },                
                             {
-                                href: '/pages/StrategySimulator',
+                                href: '/StrategySimulator',
                                 title: 'Strategy Simulator',
                             },
                             {
-                                href: '/pages/StatStrategy',
+                                href: '/StatStrategy',
                                 title: 'Stat Strategy',
                             },
                             {
-                                href: '/pages/InvestmentGame',
+                                href: '/InvestmentGame',
                                 title: 'Investment Game',
                             },
                 ],

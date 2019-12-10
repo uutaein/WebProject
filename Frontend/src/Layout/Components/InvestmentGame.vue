@@ -634,6 +634,7 @@ export default {
         ModelSelect
     },
     name: "InvestmentGame",
+
     data() {
         return {
             stockNum: [],
@@ -660,6 +661,7 @@ export default {
             progress_percent: 0,
             percent_max: 100,
             timer : null,
+            
         };
     },
     methods: {
@@ -806,6 +808,45 @@ export default {
             clearInterval(this.timer);
             this.timer = null;
         }
-    }
+    },
+     created(){
+            
+            this.stockNum =[],
+            this.stockCode = [],
+            this.start_date = "",
+            this.tstart_date = "",
+            this.tend_date = "",  
+            this.init_money = 0,
+            this.init_state_done = false,
+            this.stockList = [],
+            this.portfolio_done = false,
+            this.invest_once = false,
+            this.total_invest_count = 0,
+            this.step_check_toggle = false,
+            this.portfolio_arrange = 0,
+            this.options = [],
+            this.ratio=[],
+            this.$store.state.chart1_labels = [],
+            this.$store.state.chart1_data = [],
+            this.$store.state.IG_init_money = 0,
+            this.$store.state.IG_result_money = 0,
+            this.$store.state.IG_init_date = '',
+            this.$store.state.IG_init_stocks = [],
+            this.$store.state.IG_init_index_stock_num = 0,
+            this.$store.state.IG_init_kospi_stock_num = 0,
+            this.$store.state.IG_chart_labels = [],
+            this.$store.state.IG_chart_data1 = [],
+            this.$store.state.IG_chart_data2 = [],
+            this.$store.state.IG_chart_done = false,
+            this.$store.state.IG_profit = 0,
+            this.$store.state.IG_max_profit = 0,
+            this.$store.state.IG_chart_total_labels = [],
+            this.$store.state.IG_chart_total_data1 = [],
+            this.$store.state.IG_chart_total_data2 = [],
+            this.$store.state.IG_chart_total_done = false,
+            this.$store.state.IG_net_money= 0,
+            this.$store.state.IG_total_net_money = 0,
+            this.$store.state.IG_total_net_profit = 0
+     }
 };
 </script>

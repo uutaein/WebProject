@@ -17,6 +17,7 @@
                             <li>거래량 스코어 4 이상</li>
                         </ul>
                         <b-button variant="outline-info" class="graphBtn"  @click="showRadar(1)">그래프 보기</b-button>
+                        <b-button variant="outline-info" class="graphBtn"  @click="showResultRecommend()">구성 종목 보기</b-button>
                     </div>
                     <div id="graphZone">
                         <canvas id="radar1" width="450" height="300"></canvas>
@@ -39,6 +40,7 @@
                             <li>모멘텀 스코어 2 이상 4 이하</li>
                         </ul>
                         <b-button variant="outline-info" class="graphBtn"  @click="showRadar(2)">그래프 보기</b-button>
+                        <b-button variant="outline-info" class="graphBtn"  @click="showResultRecommend()">구성 종목 보기</b-button>
                     </div>
                     <div id="graphZone"><canvas id="radar2" width="450" height="300"></canvas></div>
                 </div>
@@ -59,6 +61,7 @@
                             <li>성장성 스코어 4 이상</li>
                         </ul>
                         <b-button variant="outline-info" class="graphBtn"  @click="showRadar(3)">그래프 보기</b-button>
+                        <b-button variant="outline-info" class="graphBtn"  @click="showResultRecommend()">구성 종목 보기</b-button>
                     </div>
 
                     <div id="graphZone"><canvas id="radar3" width="450" height="300"></canvas></div>
@@ -80,6 +83,7 @@
                             <li>수익성 스코어 4 이상</li>
                         </ul>
                         <b-button variant="outline-info" class="graphBtn"  @click="showRadar(4)">그래프 보기</b-button>
+                        <b-button variant="outline-info" class="graphBtn"  @click="showResultRecommend()">구성 종목 보기</b-button>
                     </div>
                     <div id="graphZone"><canvas id="radar4" width="450" height="300"></canvas></div>
                 </div>
@@ -101,6 +105,7 @@
                             <li>저평가 스코어 2 이상</li>
                         </ul>
                         <b-button variant="outline-info" class="graphBtn"  @click="showRadar(5)">그래프 보기</b-button>
+                        <b-button variant="outline-info" class="graphBtn"  @click="showResultRecommend()">구성 종목 보기</b-button>
                     </div>
                     <div id="graphZone"><canvas id="radar5" width="450" height="300"></canvas></div>
                 </div>
@@ -260,6 +265,12 @@
             },
             showRecommend: function () {
                 this.$router.push('/pages/Recommend');
+            },
+            showResultRecommend: function () {
+                this.$router.push({
+                    name: 'Stat Strategy2',
+                    params: {"min":this.MinStat,"max":this.MaxStat}
+                });
             },
             clearTable: function () {
                 var tb=document.getElementById('resultTable');

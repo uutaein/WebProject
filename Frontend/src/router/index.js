@@ -55,9 +55,20 @@ export default new Router({
             component:()=>import('../Layout/Components/StatStrategy.vue'),
         },
         {
-            path: '/pages/Recommend',
-            name : 'Stat Recommend',
-            component:()=>import('../Layout/Components/StatStrategy_sample.vue'),
+            path: '/pages/StatStrategy2',
+            name : 'Stat Strategy2',
+            component:()=>import('../Layout/Components/StatStrategy2.vue'),
+            props: true,
+        },
+        {
+            path: '/pages/StatStrategy2',
+            name : 'Stat Strategy2',
+            component:()=>import('../Layout/Components/StatStrategy2.vue'),
+        },
+        {
+            path: '/pages/Recommend2',
+            name : 'Recommend2',
+            component:()=>import('../Layout/Components/RecommendStrategy2.vue'),
         },
         {
             path: '/pages/InvestmentGame',

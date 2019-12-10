@@ -70,8 +70,9 @@
             <b-button variant="focus" id="recommendBtn" @click="showRecommend">추천 전략 보기</b-button>
             <b-button variant="warning" id="rankManualBtn" @click="rankManualPopup">점수 산정기준</b-button>
         </div>
-        <div id="tableZone" v-if="tableOn">
-            <table id="resultTable" border="1" bordercolor="#3ac18a">
+        <div class="panel panel-default" id="tableZone" v-if="tableOn">
+            <div class="panel panel-heading">왼쪽 스탯에 포함된 총 <strong>{{this.filter_len}}개</strong> 종목</div>
+            <table class="panel panel-body" id="resultTable" border="1" bordercolor="#3ac18a">
                 <tr bgcolor="#3AC18A" style="color: white">
                     <td>종목명</td>
                     <td>시가총액</td>
@@ -98,6 +99,21 @@
 
     export default {
         name: "StatStrategy",
+        mounted(){
+            if(!this.$route.params.min){
+                return;
+            }
+            else{
+                this.tableOn=true;
+                this.MinStat = this.$route.params.min;
+                this.MaxStat = this.$route.params.max;
+                this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
+                   // console.log(response.data);
+                   this.filteredStockData = response.data;
+                   this.filter_len = response.data.length;
+                })
+            }
+        },
         data(){
             return{
                 MinStat:[3,3,2,2,2,2],
@@ -108,9 +124,9 @@
                 chartOn:false,
                 tableOn:false,
                 filteredStockData:[],
+                filter_len:'',
             }
         },
-        
         methods:{
             StatInfoInit:function(){
                 var sizeInfo='사이즈는 주식에 있어서 빠질 수 없는 요소입니다.\n ' +
@@ -235,7 +251,7 @@
                 document.getElementById('graphzone').style.display="none"
             },
             showRecommend: function () {
-                this.$router.push('/pages/Recommend');
+                this.$router.push('/pages/Recommend2');
             },
             findCompany: function(){
                 this.tableOn=true;
@@ -243,6 +259,7 @@
                 this.$http.post('/test/stat',{minstat : this.MinStat , maxstat: this.MaxStat}).then(response=>{
                    // console.log(response.data);
                    this.filteredStockData = response.data;
+                   this.filter_len = response.data.length();
                 })
             },
             clearTable: function () {
@@ -295,6 +312,26 @@
 button{
     width: 14%;
 }
-
-
+.panel {
+    border-radius:4px;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: yellow;
+    border-color: black;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
 </style>
